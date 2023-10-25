@@ -1,17 +1,17 @@
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header/Header";
+import RootRoute from "./pages/RootRoute/RootRoute";
+import MainPage from "./pages/MainPage/MainPage";
 import ItemCurrency from "./pages/Item/Item";
-/* import ModalWindow from "./components/ModalWindow/ModalWindow"; */
-/* import MainPage from "./pages/MainPage/MainPage"; */
 
 function App() {
     return (
-        <>
-            <Header />
-            <ItemCurrency />
-            {/* <MainPage /> */}
-            {/* <ModalWindow /> */}
-        </>
+        <Routes>
+            <Route path="/" element={<RootRoute />}>
+                <Route index element={<MainPage />} />
+                <Route path="/currencyId" element={<ItemCurrency />} />
+            </Route>
+        </Routes>
     );
 }
 
