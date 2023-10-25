@@ -1,0 +1,64 @@
+.modal_button {
+  background-color: var(--color4);
+  padding: 0 30px;
+  font-family: var(--font);
+  font-size: 19px;
+  text-transform: uppercase;
+  margin: 20px 0;
+}
+
+.modal_button:hover {
+  background-color: var(--color7) !important;
+}
+
+.modal_input::placeholder {
+  font-family: var(--font);
+  font-size: 18px;
+  text-align: center;
+}
+
+.modal_input {
+  font-family: var(--font);
+  font-size: 18px;
+  text-align: center;
+  border-color: var(--color1);
+  color: var(--color6);
+  margin-bottom: 20px;
+}
+
+.modal_input:focus, .modal_input:hover {
+  border-color: var(--color7);
+}
+
+.item_enter {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.title_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: var(--color1);
+  font-family: var(--font);
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.item_span {
+  padding: 7px;
+  border: 2px solid var(--color1);
+}
+
+.item_title {
+  font-size: 35px !important;
+  color: var(--color1) !important;
+  font-family: var(--font) !important;
+  margin-bottom: 0 !important;
+}
+
+.table_field {
+  height: 20px !important;
+  padding: 5px !important;
+  font-family: var(--font) !important;
+}

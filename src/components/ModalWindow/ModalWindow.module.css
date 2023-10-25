@@ -1,0 +1,68 @@
+.modal_title {
+  margin: 20px 0;
+}
+
+.title {
+  font-family: var(--font);
+  text-transform: capitalize;
+}
+
+.title_span {
+  color: var(--color1);
+  text-transform: capitalize;
+}
+
+.modal_paragraph {
+  font-family: var(--font);
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.modal_input::placeholder {
+  font-family: var(--font);
+  font-size: 18px;
+  text-align: center;
+}
+
+.modal_input {
+  font-family: var(--font);
+  font-size: 18px;
+  text-align: center;
+  border-color: var(--color1);
+  color: var(--color6);
+  margin-bottom: 20px;
+}
+
+.modal_input:focus, .modal_input:hover {
+  border-color: var(--color7);
+}
+
+.modal_button {
+  background-color: var(--color4);
+  padding: 0 30px;
+  font-family: var(--font);
+  font-size: 19px;
+  text-transform: uppercase;
+}
+
+.modal_button:hover {
+  background-color: var(--color7) !important;
+}
+
+.colum_title {
+  color: var(--color5);
+  font-family: var(--font);
+  text-align: center;
+}
+
+.table_field {
+  font-family: var(--font);
+  text-align: center;
+}
+
+.table_icon {
+  color: var(--color3);
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,26 @@
+:root {
+  --color1: #FFB600;
+  --color2: #4711AE;
+  --color3: #0776A0;
+  --color4: #A67600;
+  --color5: #BF9630;
+  --color6: #226078;
+  --color7: #62B1D0;
+
+  --font: 'Lato', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--color3) !important;
+  font-family: var(--font);
+}
+
+.ant-pagination-item-active {
+  border-color: var(--color3) !important;
+}
