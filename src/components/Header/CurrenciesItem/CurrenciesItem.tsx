@@ -1,19 +1,25 @@
 import { Col, Row, Typography } from "antd";
 import styles from "./CurrenciesItem.module.css";
 
-function CurrenciesItem() {
+interface ICurrenciesItem {
+    elemName: string;
+    elemPrice: string;
+}
+
+function CurrenciesItem({ elemName, elemPrice }: ICurrenciesItem) {
     const { Title } = Typography;
 
     return (
         <Col span={8}>
             <Row>
                 <Title level={4} className={styles.item_title}>
-                    Bitcoin
+                    {elemName}
                 </Title>
             </Row>
             <Row>
                 <p>
-                    23162.22<span>$</span>
+                    {Number(elemPrice).toFixed(2)}
+                    <span>$</span>
                 </p>
             </Row>
         </Col>
