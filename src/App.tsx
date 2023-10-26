@@ -9,7 +9,7 @@ function App() {
         <Routes>
             <Route path="/" element={<RootRoute />}>
                 <Route index element={<MainPage />} />
-                <Route path="/currencyId" element={<ItemCurrency />} />
+                <Route path="/:currencyId" element={<ItemCurrency />} />
             </Route>
         </Routes>
     );
