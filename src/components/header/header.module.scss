@@ -1,0 +1,53 @@
+@use '../../styles/mixins';
+
+.header {
+  @include mixins.display-row(space-between);
+
+  width: 100%;
+  padding: 5rem;
+
+  border: 1px solid red;
+}
+
+.popularCoinContainer {
+  @include mixins.display-column;
+
+  h3 {
+    @include mixins.font-header(var(--font-size-0), var(--font-weight-1));
+    text-decoration: underline;
+    text-decoration-color: var(--color-2);
+  }
+
+  .coinList {
+    @include mixins.display-row(space-between, flex-start, 5rem);
+  }
+
+}
+
+.shoppingContainer {
+  @include mixins.display-row(space-between, center, 2rem);
+
+  .soppingCartIcon {
+    font-size: 10rem;
+    color: var(--color-2);
+  }
+
+  .shoppingCart {
+    @include mixins.display-column(0.1rem);
+
+    h3{
+      @include mixins.font-header(var(--font-size-2), var(--font-weight-1));
+    }
+    h2 {
+      @include mixins.font-header(var(--font-size-3), var(--font-weight-3), var(--color-3));
+    }
+
+    .shoppingCartStatistic {
+      @include mixins.display-row(flex-start, flex-start, 0.5rem);
+
+      span {
+        @include mixins.font-header(var(--font-size-1), var(--font-weight-1), var(--color-2));
+      }
+    }
+  }
+}
