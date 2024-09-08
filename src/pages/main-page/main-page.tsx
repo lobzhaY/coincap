@@ -1,5 +1,13 @@
+import { TablePagination } from './pagination';
+import { DataTable } from './table';
+
+import styles from './main-page.module.scss';
+
 export const MainPage: React.FC = () => {
   return (
-    <h1>Main Page</h1>
+    <main>
+      <DataTable />
+      <TablePagination />
+    </main>
   )
 }

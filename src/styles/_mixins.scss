@@ -22,3 +22,9 @@
   color: $color;
   text-align: left;
 }
+
+@mixin display-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
