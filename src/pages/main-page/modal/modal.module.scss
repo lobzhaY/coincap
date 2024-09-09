@@ -1,0 +1,14 @@
+@use '../../../styles/mixins';
+
+.modalTable {
+
+  @include mixins.display-column(3rem,  center);
+
+  h2.modalTitle {
+    @include mixins.font-header(var(--font-size-4), (--font-weight-2), var(--color-5));
+
+    span {
+      color: var(--color-3);
+    }
+  }
+}

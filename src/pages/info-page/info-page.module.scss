@@ -1,0 +1,29 @@
+@use '../../styles/mixins';
+
+.itemContainer {
+  @include mixins.display-column(1.5rem, center);
+}
+
+.buttonContainer {
+  padding: 0 5rem;
+  border-radius: .1rem;
+}
+
+.button {
+  @include mixins.display-row(center, center, 1rem);
+
+  font-family: var(--font-family-0);
+  font-size: var(--font-size-1);
+  text-transform: uppercase;
+  line-height: var(--line-height);
+
+  span.icon {
+      font-size: 2rem;
+    }
+}
+
+.dataContainer {
+  @include mixins.display-column(1rem, center);
+
+  border: 1px solid red;
+}

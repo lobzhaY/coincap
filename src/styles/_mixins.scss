@@ -1,0 +1,39 @@
+@mixin display-row($justify-content, $align-items: flex-start, $gap: 1rem) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  gap: $gap;
+
+}
+
+@mixin display-column($gap: 1rem,  $align-items: flex-start ) {
+  display: flex;
+  flex-direction: column;
+  align-items: $align-items;
+  gap: $gap;
+}
+
+@mixin display-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin font-header($size: var(--font-size-1), $weight: var(--font-weight-2), $color: var(--color-4)) {
+  font-size: $size;
+  font-weight: $weight;
+  font-family: var(--font-family-0);
+  line-height: var(--line-height);
+  color: $color;
+  text-align: left;
+}
+
+@mixin font-text {
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-1);
+  font-family: var(--font-family-1);
+  line-height: var(--line-height);
+  color: var(--color-5);
+  text-align: left;
+}

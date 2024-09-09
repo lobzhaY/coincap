@@ -1,0 +1,43 @@
+@use '../../../styles/mixins';
+
+.tableContainer {
+  width: 85%;
+  margin: 2rem auto 0;
+}
+
+.tableField {
+  text-align: center;
+}
+
+.tableAlign {
+  text-align: left;
+  cursor: pointer;
+}
+
+.tableAlign:hover {
+  color: var(--color-2);
+}
+
+.columnTitle {
+  color: var(--color-5);
+  font-size: var(--font-size-1);
+  font-family: var(--font-family-0);
+  text-align: center;
+}
+
+.tableFieldColor {
+  color: var(--color-3);
+  font-family: var(--font-family-0);
+}
+
+.tableIcon {
+  color: var(--color-3);
+  font-size: 3rem;
+  cursor: pointer;
+
+  @include mixins.display-center;
+}
+
+.tableWeight {
+  font-weight: var(--font-weight-3);
+}
