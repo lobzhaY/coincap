@@ -3,12 +3,21 @@ import { ShoppingOutlined } from '@ant-design/icons';
 import { PopularCoin } from './popular-coin';
 
 import styles from './header.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ConfigProvider, Modal } from 'antd';
 import { ModalShopping } from './modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTopCoinsData } from '../../redux/actions/get-coins';
 
 export const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {headerCoin} = useSelector((state) => state.coins);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTopCoinsData(3));
+  }, []);
 
   return (
     <>
@@ -16,9 +25,9 @@ export const Header: React.FC = () => {
         <div className={styles.popularCoinContainer}>
           <h3>Популярные криптовалюты</h3>
           <div className={styles.coinList}>
-            <PopularCoin />
-            <PopularCoin />
-            <PopularCoin />
+            {
+              headerCoin.map((coin) => <PopularCoin coinName={coin.name} coinPrice={coin.priceUsd} />)
+            }
           </div>
         </div>
 

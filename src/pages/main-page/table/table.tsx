@@ -5,8 +5,9 @@ import styles from './table.module.scss';
 import { dataTable } from './dataTable';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ModalTable } from '../modal';
+import { useSelector } from 'react-redux';
 
 export const DataTable: React.FC = () => {
   const { Column } = Table;
@@ -18,6 +19,12 @@ export const DataTable: React.FC = () => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {coins} = useSelector((state) => state.coins);
+  const [dataTable, setDataTable] = useState();
+
+useEffect(() => {
+    setDataTable(coins);
+}, [coins]);
 
   return (
     <>

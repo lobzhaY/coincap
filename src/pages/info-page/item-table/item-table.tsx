@@ -4,16 +4,69 @@ import { Link } from 'react-router-dom';
 
 import styles from './item-table.module.scss';
 
-export const ItemTable: React.FC = ({ data }) => {
+export const ItemTable: React.FC = ({ dataCoin }) => {
   const { Column } = Table;
 
   const [dataTable, setDataTable] = useState([]);
 
   useEffect(() => {
-    if (data) {
-      setDataTable(data);
+    if (dataCoin) {
+      createTableObj(dataCoin);
     }
-  }, [data]);
+  }, [dataCoin]);
+
+  const switchTableKey = (key: string) => {
+    let stringKey = "";
+    switch (key) {
+        case "supply":
+            stringKey = "Available supply for trading";
+            break;
+        case "maxSupply":
+            stringKey = "Total quantity of asset issued";
+            break;
+        case "volumeUsd24Hr":
+            stringKey = "Quantity of trading volume over the last 24h";
+            break;
+        case "changePercent24Hr":
+            stringKey = "The direction and value change in the last 24h";
+            break;
+        case "vwap24Hr":
+            stringKey = "Volume Weighted Average Price in the last 24h";
+            break;
+        case "explorer":
+            stringKey = "Explorer";
+            break;
+        default:
+            stringKey = key;
+    }
+    return stringKey;
+};
+
+  function createTableObj(dataObj) {
+    const objKeys = Object.keys(dataObj).filter(
+        elem =>
+            elem !== "id" &&
+            elem !== "rank" &&
+            elem !== "symbol" &&
+            elem !== "name" &&
+            elem !== "marketCapUsd" &&
+            elem !== "priceUsd"
+    );
+    const dataVal = objKeys.map(elem => {
+        return {
+            key: switchTableKey(elem),
+            value: dataObj[elem]
+        };
+    });
+    const dataTableVal = [
+        {
+            key: "Price",
+            value: `${Number(dataObj.priceUsd).toFixed(2)} $`,
+        },
+        ...dataVal,
+    ];
+    setDataTable(dataTableVal);
+}
 
   return (
     <div className={styles.tableContainer}>
@@ -44,7 +97,7 @@ export const ItemTable: React.FC = ({ data }) => {
           key="value"
           render={(text, rowIndex) => {
             return rowIndex.key === 'Explorer' ? (
-              <Link to={text}>link {/* {data.data.name} */}</Link>
+              <Link to={text}> {dataCoin.name}</Link>
             ) : (
               <div>{text}</div>
             );
