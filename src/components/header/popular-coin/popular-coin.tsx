@@ -1,10 +1,14 @@
 import styles from './popular-coin.module.scss';
 
-export const PopularCoin: React.FC = () => {
+type PopularCoinProps = {
+  coinName: string, coinPrice: number
+}
+
+export const PopularCoin: React.FC<PopularCoinProps> = ({ coinName, coinPrice }) => {
   return (
     <div className={styles.coinWrapper}>
-      <h4>Bitcoin</h4>
-      <p>23162.06<span>$</span></p>
+      <h4>{coinName}</h4>
+      <p>{coinPrice}<span>$</span></p>
     </div>
   )
 }
