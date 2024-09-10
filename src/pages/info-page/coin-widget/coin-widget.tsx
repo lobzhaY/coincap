@@ -1,12 +1,16 @@
 import styles from './coin-widget.module.scss';
 
-export const CoinWidget: React.FC = () => {
+type CoinWidgetProps = {
+  coinName: string, coinSymbol: string
+}
+
+export const CoinWidget: React.FC<CoinWidgetProps> = ({coinName, coinSymbol}) => {
   return (
     <div className={styles.widgetWrapper}>
       <div className={styles.widgetContainer}>
-        <span>BTC</span>
+        <span>{coinSymbol}</span>
       </div>
-      <h1>Bitcoin</h1>
+      <h1>{coinName}</h1>
     </div>
   );
 };

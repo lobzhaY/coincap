@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   LineChart,
   Line,
@@ -8,6 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import { fetchHistoryData } from '../../../redux/actions/get-coins';
 
 type DataRechartType = {
   name: string;
@@ -20,8 +22,10 @@ interface HistoryResponse {
   time: number;
 }
 
-export const LineRecharts: React.FC = ({ recharts }) => {
+export const LineRecharts: React.FC = ({ coinId }) => {
   const [dataRecharts, setDataRecharts] = useState<DataRechartType[]>([]);
+  const dispatch = useDispatch();
+  const { historyCoin } = useSelector((state) => state.coins)
 
   function createRechartsObj(rechartsObj: HistoryResponse[]) {
     const arrTenDays = rechartsObj.slice(-30);
@@ -33,12 +37,18 @@ export const LineRecharts: React.FC = ({ recharts }) => {
       };
     });
     setDataRecharts(arr);
-  }
+  };
+
   useEffect(() => {
-    if (recharts.data) {
-      createRechartsObj(recharts.data);
+    dispatch(fetchHistoryData({id: coinId, interval: 'd1'}));
+  }, []);
+
+  useEffect(() => {
+    if (coinId) {
+     createRechartsObj(historyCoin);
     }
-  }, [recharts.data]);
+  }, [historyCoin]);
+
   return (
     <div style={{ width: '100%' }}>
       <ResponsiveContainer width="100%" height={200}>
