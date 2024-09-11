@@ -24,6 +24,4 @@
 
 .dataContainer {
   @include mixins.display-column(1rem, center);
-
-  border: 1px solid red;
 }

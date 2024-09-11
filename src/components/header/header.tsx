@@ -1,23 +1,24 @@
+import { useEffect, useState } from 'react';
+
+import { ConfigProvider, Modal } from 'antd';
 import { ShoppingOutlined } from '@ant-design/icons';
 
-import { PopularCoin } from './popular-coin';
+import { fetchTopCoinsData } from '../../redux/actions/get-coins-asynk-thunk';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+
+import { ModalShopping, PopularCoin } from './components';
 
 import styles from './header.module.scss';
-import { useEffect, useState } from 'react';
-import { ConfigProvider, Modal } from 'antd';
-import { ModalShopping } from './modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTopCoinsData } from '../../redux/actions/get-coins';
 
 export const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const {headerCoin} = useSelector((state) => state.coins);
+  const { headerCoin } = useAppSelector((state) => state.coins);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchTopCoinsData(3));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -25,9 +26,9 @@ export const Header: React.FC = () => {
         <div className={styles.popularCoinContainer}>
           <h3>Популярные криптовалюты</h3>
           <div className={styles.coinList}>
-            {
-              headerCoin.map((coin) => <PopularCoin coinName={coin.name} coinPrice={coin.priceUsd} />)
-            }
+            {headerCoin.map((coin, index) => (
+              <PopularCoin coinName={coin.name} coinPrice={coin.priceUsd} key={`${coin.id}-${index}`} />
+            ))}
           </div>
         </div>
 
@@ -54,7 +55,7 @@ export const Header: React.FC = () => {
           open={isModalOpen}
           centered={true}
           footer={null}
-          width='75%'
+          width="75%"
           onCancel={() => setIsModalOpen(false)}>
           <ModalShopping />
         </Modal>

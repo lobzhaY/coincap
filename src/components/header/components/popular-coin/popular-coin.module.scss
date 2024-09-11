@@ -1,0 +1,13 @@
+@use '../../../../styles/mixins';
+
+.coinWrapper {
+  @include mixins.display-column(0rem);
+
+  h4 {
+    @include mixins.font-header;
+  }
+
+  p {
+    @include mixins.font-header(var(--font-size-2), var(--font-weight-1));
+  }
+}
