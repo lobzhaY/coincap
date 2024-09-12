@@ -1,7 +1,0 @@
-@use '../../../styles/mixins';
-
-.paginationContainer {
-  @include mixins.display-center;
-
-  padding: 2rem;
-}

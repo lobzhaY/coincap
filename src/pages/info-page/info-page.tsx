@@ -1,32 +1,33 @@
+import { useEffect } from 'react';
+
 import { Link, useParams } from 'react-router-dom';
-import { QuantityForm } from './quantity-form';
+
 import { Button, ConfigProvider } from 'antd';
 import { LeftSquareOutlined } from '@ant-design/icons';
 
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchActiveCoinData } from '../../redux/actions/get-coins-asynk-thunk';
+
+import { CoinWidget, QuantityForm, ItemTable, LineRecharts } from './components';
+
 import styles from './info-page.module.scss';
-import { LineRecharts } from './line-chart';
-import { dataTable } from '../main-page/table/dataTable';
-import { ItemTable } from './item-table';
-import { CoinWidget } from './coin-widget';
-import { useDispatch, useSelector } from 'react-redux';
-import { Suspense, useEffect, useState } from 'react';
-import { fetchActiveCoinData } from '../../redux/actions/get-coins';
 
 export const InfoPage: React.FC = () => {
-  const { coins, activeCoin } = useSelector((state) => state.coins);
-  let { id } = useParams();
-  const [dataCoin, setDataCoin] = useState();
+  const { activeCoin } = useAppSelector((state) => state.coins);
+  const { id } = useParams();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-   dispatch(fetchActiveCoinData(id)); 
-  }, [id]);
+    if (id) {
+      dispatch(fetchActiveCoinData(id));
+    }
+  }, [id, dispatch]);
 
   return (
     <>
       {' '}
-      {activeCoin ? (
+      {activeCoin && id ? (
         <div className={styles.itemContainer}>
           <CoinWidget coinName={activeCoin.name} coinSymbol={activeCoin.symbol} />
 
@@ -54,7 +55,9 @@ export const InfoPage: React.FC = () => {
             </ConfigProvider>
           </Link>
         </div>
-      ) : (<p>Loading</p>)}
+      ) : (
+        <p>Loading</p>
+      )}
     </>
   );
 };

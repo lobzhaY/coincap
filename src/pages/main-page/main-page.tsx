@@ -1,21 +1,21 @@
-import { TablePagination } from './pagination';
-import { DataTable } from './table';
-
-import styles from './main-page.module.scss';
 import { useEffect } from 'react';
-import { fetchData } from '../../redux/actions/get-coins';
-import { useDispatch } from 'react-redux';
+
+import { DataTable, TablePagination } from './components';
+
+import { useAppDispatch } from '../../hooks';
+import { fetchData } from '../../redux/actions/get-coins-asynk-thunk';
 
 export const MainPage: React.FC = () => {
-  const dispatch = useDispatch();
-  
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(fetchData());
-  }, [])
+  }, [dispatch]);
+
   return (
     <main>
       <DataTable />
       <TablePagination />
     </main>
-  )
-}
+  );
+};
