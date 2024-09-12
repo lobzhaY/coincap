@@ -23,6 +23,7 @@ export const DataTable: React.FC = () => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [idCoin, setIdCoin] = useState<{idCoin: string, name: string}>();
   const { coins } = useAppSelector((state) => state.coins);
   const [dataTable, setDataTable] = useState<OneCoinType[]>();
 
@@ -108,6 +109,7 @@ export const DataTable: React.FC = () => {
                 return {
                   onClick: () => {
                     console.log(record);
+                    setIdCoin({idCoin: record.id, name: record.name});
                     setIsModalOpen(true);
                   },
                 };
@@ -127,8 +129,11 @@ export const DataTable: React.FC = () => {
           open={isModalOpen}
           centered={true}
           footer={null}
-          onCancel={() => setIsModalOpen(false)}>
-          <ModalTable />
+          onCancel={() => {
+            setIsModalOpen(false);
+            setIdCoin({idCoin: '', name: ''})
+            }}>
+          <ModalTable coin={idCoin} />
         </Modal>
       </ConfigProvider>
     </>

@@ -1,10 +1,32 @@
 import { Button, ConfigProvider, InputNumber, InputNumberProps } from 'antd';
 
 import styles from './quantity-form.module.scss';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { addCoinToCart, addCoinWithSelection } from '../../../../redux/slices/shopping-cart';
 
-export const QuantityForm: React.FC = () => {
+type QuantityFormProps = {
+  idCoin: string
+}
+
+export const QuantityForm: React.FC<QuantityFormProps> = ({idCoin}) => {
+  const dispatch = useDispatch();
+
+  const [coinQuantity, setCoinQuantity] = useState<number>();
+
   const onChange: InputNumberProps['onChange'] = (value) => {
-    console.log('changed', value);
+    console.log('changed', value, typeof value);
+    if (value && typeof value === 'number') {
+      setCoinQuantity(value);
+    }
+  };
+
+  const handleAddCoin = () => {
+    console.log(coinQuantity)
+    if (coinQuantity && coinQuantity > 0) {
+      dispatch(addCoinWithSelection({id: idCoin, quantity: coinQuantity}));
+      setCoinQuantity(undefined);
+    }
   };
 
   return (
@@ -20,7 +42,7 @@ export const QuantityForm: React.FC = () => {
               },
             },
           }}>
-          <InputNumber className={styles.input} controls={false} onChange={onChange} />
+          <InputNumber className={styles.input} controls={false} onChange={onChange} value={coinQuantity}/>
         </ConfigProvider>
         <ConfigProvider
           theme={{
@@ -35,7 +57,7 @@ export const QuantityForm: React.FC = () => {
               },
             },
           }}>
-          <Button size={'small'} className={styles.button}>
+          <Button size={'small'} className={styles.button} onClick={handleAddCoin}>
             <span>Купить</span>
           </Button>
         </ConfigProvider>
