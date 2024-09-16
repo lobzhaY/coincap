@@ -7,6 +7,8 @@ import { ConfigProvider, Table } from 'antd';
 import { OneCoinType } from '../../../../types';
 
 import styles from './item-table.module.scss';
+import { getChangePercentColor } from '../../../../utils/get-colors';
+import { addDollarSign, addProcentSign, formatNums, formatToBillion, formatToMillion } from '../../../../utils/format-nums';
 
 type ItemTableProps = {
   dataCoin: OneCoinType;
@@ -23,6 +25,7 @@ export const ItemTable: React.FC<ItemTableProps> = ({ dataCoin }) => {
   const [dataTable, setDataTable] = useState<DataTableType[]>([]);
 
   const createTableObj = useCallback((dataObj: OneCoinType) => {
+
     const objKeys = Object.keys(dataObj).filter(
       (elem) =>
         elem !== 'id' &&
@@ -30,23 +33,28 @@ export const ItemTable: React.FC<ItemTableProps> = ({ dataCoin }) => {
         elem !== 'symbol' &&
         elem !== 'name' &&
         elem !== 'marketCapUsd' &&
-        elem !== 'priceUsd',
+        elem !== 'priceUsd'
     );
+ 
     const dataVal = objKeys.map((elem) => {
       return {
+        id: elem,
         key: switchTableKey(elem),
-        value: dataObj[elem],
+        value: switchSing(elem, dataObj),
       };
     });
+
     const dataTableVal = [
       {
+        id: 'priceUsd',
         key: 'Price',
-        value: `${Number(dataObj.priceUsd).toFixed(2)} $`,
+        value: addDollarSign(formatNums(dataObj.priceUsd)),
       },
       ...dataVal,
     ];
+
     setDataTable(dataTableVal);
-  }, [dataCoin]);
+  }, []);
 
   useEffect(() => {
     if (dataCoin) {
@@ -80,6 +88,33 @@ export const ItemTable: React.FC<ItemTableProps> = ({ dataCoin }) => {
     }
     return stringKey;
   };
+
+  const switchSing = (key: string, dataObj) => {
+    let stringValue = '';
+    switch (key) {
+      case 'supply':
+        stringValue = addDollarSign(formatToMillion(dataObj[key]));
+        break;
+      case 'maxSupply':
+        stringValue = addDollarSign(formatToMillion(dataObj[key]));
+        break;
+      case 'volumeUsd24Hr':
+        stringValue = addDollarSign(formatToBillion(dataObj[key]));
+        break;
+      case 'changePercent24Hr':
+        stringValue = addProcentSign(formatNums(dataObj[key]));
+        break;
+      case 'vwap24Hr':
+        stringValue =addDollarSign(formatNums(dataObj[key]));
+        break;
+      case 'explorer':
+        stringValue = dataObj[key];
+        break;
+      default:
+        stringValue = dataObj[key];
+    }
+    return stringValue;
+  }
 
  
 
@@ -116,11 +151,12 @@ export const ItemTable: React.FC<ItemTableProps> = ({ dataCoin }) => {
             onCell={(record) => {
               return {
                 style: {
-                  color: 'green', //getColor(record),
-                  fontWeight: record.key === 'Price' ? 'bold' : '',
+                  color: record.id == 'changePercent24Hr' ? getChangePercentColor(record.value) : '',
+                  fontWeight: record.id == 'priceUsd' ? 'bold' : '',
                 },
               };
-            }}
+            }
+          }
           />
         </Table>
       </ConfigProvider>
