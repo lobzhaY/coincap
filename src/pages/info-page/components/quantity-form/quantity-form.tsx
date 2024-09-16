@@ -3,13 +3,14 @@ import { Button, ConfigProvider, InputNumber, InputNumberProps } from 'antd';
 import styles from './quantity-form.module.scss';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { addCoinToCart, addCoinWithSelection } from '../../../../redux/slices/shopping-cart';
+import { addCoinToCart } from '../../../../redux/slices/shopping-cart';
 
 type QuantityFormProps = {
-  idCoin: string
+  idCoin: string,
+  price: string
 }
 
-export const QuantityForm: React.FC<QuantityFormProps> = ({idCoin}) => {
+export const QuantityForm: React.FC<QuantityFormProps> = ({idCoin, price}) => {
   const dispatch = useDispatch();
 
   const [coinQuantity, setCoinQuantity] = useState<number>();
@@ -24,7 +25,7 @@ export const QuantityForm: React.FC<QuantityFormProps> = ({idCoin}) => {
   const handleAddCoin = () => {
     console.log(coinQuantity)
     if (coinQuantity && coinQuantity > 0) {
-      dispatch(addCoinWithSelection({id: idCoin, quantity: coinQuantity}));
+      dispatch(addCoinToCart({id: idCoin, quantity: coinQuantity, price: price}));
       setCoinQuantity(undefined);
     }
   };

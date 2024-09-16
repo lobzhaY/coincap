@@ -1,51 +1,43 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getTotalPrice, getTotalPriceCoin } from '../../utils/get-total-price';
 
-type CoinType = {
+export type CoinType = {
   id: string;
   quantity: number;
   price: string;
+  totalPrice: number;
 };
+
+type ActionCoinType = {
+  id: string;
+  quantity: number;
+  price: string;
+}
 
 type InitialCoinState = {
   cart: CoinType[];
+  totalCartPrice: number;
 };
 
 const initialState: InitialCoinState = {
   cart: [],
+  totalCartPrice: 0,
 };
-
-export const addCoinWithSelection = createAsyncThunk<
-  CoinType,
-  { id: string; quantity: number },
-  {}
->('shoppingCart/addCoinWithSelection', async ({ id, quantity }, { getState }) => {
-  const state = getState() as RootState;
-  const allCoins = state.coins.coins;
-  const activeCoin = state.coins.activeCoin;
-
-  const selectedCoin = allCoins.find((coin) => coin.id === id) || activeCoin;
-
-  if (selectedCoin) {
-    return { id: id, quantity: quantity, price: selectedCoin.priceUsd };
-  }
-
-  throw new Error('Coin not found');
-});
 
 const shoppingSlice = createSlice({
   name: 'shoppingCart',
   initialState,
   reducers: {
-    addCoinToCart: (state, action: PayloadAction<CoinType>) => {
-      console.log();
-      return state;
+    addCoinToCart: (state, action: PayloadAction<ActionCoinType>) => {
+      const activeCoin = state.cart.find((coin) => coin.id === action.payload.id);
+      if (activeCoin) {
+        activeCoin.quantity += action.payload.quantity;
+        activeCoin.totalPrice = getTotalPriceCoin(activeCoin.quantity, activeCoin.price);
+      } else {
+        state.cart.push({...action.payload, totalPrice: getTotalPriceCoin(action.payload.quantity, action.payload.price)});
+      }
+      state.totalCartPrice = getTotalPrice(state.cart);
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(addCoinWithSelection.fulfilled, (state, action: PayloadAction<CoinType>) => {
-      state.cart.push(action.payload);
-    });
   },
 });
 
