@@ -31,7 +31,7 @@ export const InfoPage: React.FC = () => {
         <div className={styles.itemContainer}>
           <CoinWidget coinName={activeCoin.name} coinSymbol={activeCoin.symbol} />
 
-          <QuantityForm idCoin={id} price={activeCoin.priceUsd} />
+          <QuantityForm idCoin={id} price={activeCoin.priceUsd} name={activeCoin.name} />
 
           <div className={styles.dataContainer}>
             <ItemTable dataCoin={activeCoin} />

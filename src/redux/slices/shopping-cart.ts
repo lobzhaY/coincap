@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getTotalPrice, getTotalPriceCoin } from '../../utils/get-total-price';
+import { OneCoinType } from '../../types';
 
 export type CoinType = {
   id: string;
+  name: string;
   quantity: number;
   price: string;
   totalPrice: number;
@@ -10,6 +12,7 @@ export type CoinType = {
 
 type ActionCoinType = {
   id: string;
+  name: string;
   quantity: number;
   price: string;
 }
@@ -17,11 +20,13 @@ type ActionCoinType = {
 type InitialCoinState = {
   cart: CoinType[];
   totalCartPrice: number;
+  totalPriceDiff: number;
 };
 
 const initialState: InitialCoinState = {
   cart: [],
   totalCartPrice: 0,
+  totalPriceDiff: 0,
 };
 
 const shoppingSlice = createSlice({
@@ -38,9 +43,26 @@ const shoppingSlice = createSlice({
       }
       state.totalCartPrice = getTotalPrice(state.cart);
     },
+    deleteCoinFromCart: (state, action: PayloadAction<string>) => {
+      const filterCart = state.cart.filter((coin) => coin.id !== action.payload);
+      state.cart = filterCart;
+      state.totalCartPrice = getTotalPrice(filterCart);
+    },
+    compareTotalPrice: (state, action) => {
+      state.totalPriceDiff = action.payload;
+    },
+    synhronizeCoinsPrice: (state, action: PayloadAction<OneCoinType[]>) => {
+      state.cart.forEach((coin) => {
+        const activeCoin = action.payload.find((actionCoin) => actionCoin.id === coin.id)
+        coin.price = activeCoin?.priceUsd as string
+        coin.totalPrice = getTotalPriceCoin(coin.quantity, activeCoin?.priceUsd as string);
+      })
+
+      state.totalCartPrice = getTotalPrice(state.cart);
+    }
   },
 });
 
-export const { addCoinToCart } = shoppingSlice.actions;
+export const { addCoinToCart, deleteCoinFromCart, compareTotalPrice, synhronizeCoinsPrice } = shoppingSlice.actions;
 
 export default shoppingSlice.reducer;
