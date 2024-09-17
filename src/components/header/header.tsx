@@ -9,10 +9,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { ModalShopping, PopularCoin } from './components';
 
 import styles from './header.module.scss';
+import { formatNums } from '../../utils/format-nums';
 
 export const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { headerCoin } = useAppSelector((state) => state.coins);
+  const { totalCartPrice } = useAppSelector((state) => state.shoppingCart);
 
   const dispatch = useAppDispatch();
 
@@ -36,7 +38,7 @@ export const Header: React.FC = () => {
           <ShoppingOutlined className={styles.soppingCartIcon} />
           <div className={styles.shoppingCart}>
             <h3>Итого</h3>
-            <h2>134,32 USD</h2>
+            <h2>{formatNums(`${totalCartPrice}`) || 0} USD</h2>
             <div className={styles.shoppingCartStatistic}>
               <span>+2,38</span>
               <span>(1,80 %)</span>

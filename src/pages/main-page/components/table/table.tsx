@@ -12,6 +12,19 @@ import { ModalTable } from '../modal';
 import { OneCoinType } from '../../../../types';
 
 import styles from './table.module.scss';
+import { addDollarSign, formatNums, formatToBillion } from '../../../../utils/format-nums';
+import { getChangePercentColor } from '../../../../utils/get-colors';
+
+type OneCoinTableType = {
+  changePercent24Hr: string; 
+  id: string;
+  marketCapUsd: string;
+  name: string; 
+  priceUsd: string; 
+  rank: string; 
+  symbol: string; 
+  vwap24Hr: string;
+}
 
 export const DataTable: React.FC = () => {
   const { Column } = Table;
@@ -23,11 +36,25 @@ export const DataTable: React.FC = () => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [idCoin, setIdCoin] = useState<{idCoin: string, name: string, price: string}>();
   const { coins } = useAppSelector((state) => state.coins);
-  const [dataTable, setDataTable] = useState<OneCoinType[]>();
+  const [dataTable, setDataTable] = useState<OneCoinTableType[]>();
+
+  const transformDataTable = (coins: OneCoinType[]): OneCoinTableType[] => {
+    return coins.map((coin) => ({
+      changePercent24Hr: addDollarSign(formatNums(coin.changePercent24Hr)),
+      id: coin.id,
+      marketCapUsd: addDollarSign(formatToBillion(coin.marketCapUsd)),
+      name: coin.name,
+      priceUsd: addDollarSign(formatNums(coin.priceUsd)),
+      rank: coin.rank,
+      symbol: coin.symbol,
+      vwap24Hr: addDollarSign(formatNums(coin.vwap24Hr)),
+    }));
+  }
 
   useEffect(() => {
-    setDataTable(coins);
+    setDataTable(transformDataTable(coins));
   }, [coins]);
 
   return (
@@ -64,7 +91,6 @@ export const DataTable: React.FC = () => {
               onCell={(record) => {
                 return {
                   onClick: () => {
-                    console.log(record);
                     handleRowClick(record.id);
                   },
                 };
@@ -83,7 +109,7 @@ export const DataTable: React.FC = () => {
               onCell={(record) => {
                 return {
                   style: {
-                    color: Number(record.changePercent24Hr.slice(0, -2)) < 0 ? 'red' : 'green',
+                    color: getChangePercentColor(record.changePercent24Hr) //Number(record.changePercent24Hr.slice(0, -2)) < 0 ? 'red' : 'green',
                   },
                 };
               }}
@@ -107,7 +133,7 @@ export const DataTable: React.FC = () => {
               onCell={(record) => {
                 return {
                   onClick: () => {
-                    console.log(record);
+                    setIdCoin({idCoin: record.id, name: record.name, price: record.priceUsd});
                     setIsModalOpen(true);
                   },
                 };
@@ -127,8 +153,11 @@ export const DataTable: React.FC = () => {
           open={isModalOpen}
           centered={true}
           footer={null}
-          onCancel={() => setIsModalOpen(false)}>
-          <ModalTable />
+          onCancel={() => {
+            setIsModalOpen(false);
+            setIdCoin({idCoin: '', name: '', price: ''})
+            }}>
+          <ModalTable coin={idCoin} />
         </Modal>
       </ConfigProvider>
     </>

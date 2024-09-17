@@ -1,3 +1,4 @@
+import { formatNums } from '../../../../utils/format-nums';
 import styles from './popular-coin.module.scss';
 
 type PopularCoinProps = {
@@ -10,7 +11,7 @@ export const PopularCoin: React.FC<PopularCoinProps> = ({ coinName, coinPrice })
     <div className={styles.coinWrapper}>
       <h4>{coinName}</h4>
       <p>
-        {coinPrice}
+        {formatNums(coinPrice)}
         <span>$</span>
       </p>
     </div>
