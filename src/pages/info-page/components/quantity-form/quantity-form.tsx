@@ -7,10 +7,11 @@ import { addCoinToCart } from '../../../../redux/slices/shopping-cart';
 
 type QuantityFormProps = {
   idCoin: string,
-  price: string
+  price: string,
+  name: string,
 }
 
-export const QuantityForm: React.FC<QuantityFormProps> = ({idCoin, price}) => {
+export const QuantityForm: React.FC<QuantityFormProps> = ({idCoin, price, name}) => {
   const dispatch = useDispatch();
 
   const [coinQuantity, setCoinQuantity] = useState<number>();
@@ -23,9 +24,8 @@ export const QuantityForm: React.FC<QuantityFormProps> = ({idCoin, price}) => {
   };
 
   const handleAddCoin = () => {
-    console.log(coinQuantity)
     if (coinQuantity && coinQuantity > 0) {
-      dispatch(addCoinToCart({id: idCoin, quantity: coinQuantity, price: price}));
+      dispatch(addCoinToCart({id: idCoin, quantity: coinQuantity, price: price, name: name}));
       setCoinQuantity(undefined);
     }
   };

@@ -16,7 +16,7 @@ export const ModalTable: React.FC<ModalTableProps> = ({coin}) => {
       <h2 className={styles.modalTitle}>
         Купить <span>{coin?.name}</span>
       </h2>
-      <QuantityForm idCoin={coin?.idCoin as string} price={coin?.price as string} />
+      <QuantityForm idCoin={coin?.idCoin as string} price={coin?.price as string} name={coin?.name as string} />
     </div>
   );
 };

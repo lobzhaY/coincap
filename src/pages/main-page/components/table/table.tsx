@@ -109,7 +109,7 @@ export const DataTable: React.FC = () => {
               onCell={(record) => {
                 return {
                   style: {
-                    color: getChangePercentColor(record.changePercent24Hr) //Number(record.changePercent24Hr.slice(0, -2)) < 0 ? 'red' : 'green',
+                    color: getChangePercentColor(record.changePercent24Hr)
                   },
                 };
               }}

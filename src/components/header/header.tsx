@@ -9,12 +9,13 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { ModalShopping, PopularCoin } from './components';
 
 import styles from './header.module.scss';
-import { formatNums } from '../../utils/format-nums';
+import { addProcentSign, formatNums } from '../../utils/format-nums';
+import { getPresentTotalDiff, getPriceDiff } from '../../utils/get-total-price';
 
 export const Header: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { headerCoin } = useAppSelector((state) => state.coins);
-  const { totalCartPrice } = useAppSelector((state) => state.shoppingCart);
+  const { totalCartPrice, totalPriceDiff } = useAppSelector((state) => state.shoppingCart);
 
   const dispatch = useAppDispatch();
 
@@ -40,8 +41,8 @@ export const Header: React.FC = () => {
             <h3>Итого</h3>
             <h2>{formatNums(`${totalCartPrice}`) || 0} USD</h2>
             <div className={styles.shoppingCartStatistic}>
-              <span>+2,38</span>
-              <span>(1,80 %)</span>
+              <span>{getPriceDiff(totalCartPrice, totalPriceDiff) > 0 ? '+' + formatNums(`${getPriceDiff(totalCartPrice, totalPriceDiff)}`) : formatNums(`${getPriceDiff(totalCartPrice, totalPriceDiff)}`)}</span>
+              <span>({addProcentSign(formatNums(`${getPresentTotalDiff(totalCartPrice, totalPriceDiff)}`))})</span>
             </div>
           </div>
         </div>
