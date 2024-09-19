@@ -1,7 +1,12 @@
+import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
-import App from '../App';
-import { ErrorPage, InfoPage, MainPage } from '../pages';
+import { ErrorPage } from '../pages';
+
+const MainPage = React.lazy(() => import('../pages/main-page/main-page'));
+const InfoPage = React.lazy(() => import('../pages/info-page/info-page'));
+const NotFoundPage = React.lazy(() => import('../pages/not-found-page/not-found-page'));
+const App = React.lazy(() => import('../App'));
 
 export const router = createBrowserRouter([
   {
@@ -14,9 +19,13 @@ export const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path: ':id',
+        path: 'coins/:id',
         element: <InfoPage />,
       },
     ],
   },
+  {
+    path: '*',
+    element: <NotFoundPage />
+  }
 ]);

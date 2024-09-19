@@ -1,16 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import { DataTable, TablePagination } from './components';
+import { DataTable, TablePagination } from "./components";
 
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchData } from '../../redux/actions/get-coins-asynk-thunk';
-import { CoinType, addCoinToCart, compareTotalPrice, synhronizeCoinsPrice } from '../../redux/slices/shopping-cart';
-import { getTotalPrice } from '../../utils/get-total-price';
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { fetchData } from "../../redux/actions/get-coins-asynk-thunk";
+import {
+  CoinType,
+  addCoinToCart,
+  compareTotalPrice,
+  synhronizeCoinsPrice,
+} from "../../redux/slices/shopping-cart";
+import { getTotalPrice } from "../../utils/get-total-price";
+import { Loader } from "../../components";
 
-export const MainPage: React.FC = () => {
-
+const MainPage: React.FC = () => {
   const { cart } = useAppSelector((state) => state.shoppingCart);
-  const {allCoins} = useAppSelector((state) => state.coins);
+  const { allCoins } = useAppSelector((state) => state.coins);
+  const { isLoading } = useAppSelector((state) => state.app);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,13 +42,21 @@ export const MainPage: React.FC = () => {
   useEffect(() => {
     if (allCoins) {
       dispatch(synhronizeCoinsPrice(allCoins));
-     }
-  }, [allCoins, dispatch])
-  
+    }
+  }, [allCoins, dispatch]);
+
   return (
-    <main>
-      <DataTable />
-      <TablePagination />
-    </main>
+    <>
+      {!isLoading ? (
+        <main>
+          <DataTable />
+          <TablePagination />
+        </main>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 };
+
+export default MainPage;
