@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ConfigProvider, Modal, Table } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
 
-import { useAppSelector } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 import { ModalTable } from '../modal';
 
@@ -14,6 +14,7 @@ import { OneCoinType } from '../../../../types';
 import styles from './table.module.scss';
 import { addDollarSign, formatNums, formatToBillion } from '../../../../utils/format-nums';
 import { getChangePercentColor } from '../../../../utils/get-colors';
+import { closeModal, openModal } from '../../../../redux/slices/app-slice';
 
 type OneCoinTableType = {
   changePercent24Hr: string; 
@@ -30,14 +31,16 @@ export const DataTable: React.FC = () => {
   const { Column } = Table;
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleRowClick = (currencyId: string): void => {
-    navigate(`/${currencyId}`);
+    navigate(`/coins/${currencyId}`);
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+/* 
+  const [isModalOpen, setIsModalOpen] = useState(false); */
   const [idCoin, setIdCoin] = useState<{idCoin: string, name: string, price: string}>();
   const { coins } = useAppSelector((state) => state.coins);
+  const {isOpenModal} = useAppSelector((state) => state.app);
   const [dataTable, setDataTable] = useState<OneCoinTableType[]>();
 
   const transformDataTable = (coins: OneCoinType[]): OneCoinTableType[] => {
@@ -134,7 +137,7 @@ export const DataTable: React.FC = () => {
                 return {
                   onClick: () => {
                     setIdCoin({idCoin: record.id, name: record.name, price: record.priceUsd});
-                    setIsModalOpen(true);
+                    dispatch(openModal());
                   },
                 };
               }}
@@ -150,11 +153,11 @@ export const DataTable: React.FC = () => {
           },
         }}>
         <Modal
-          open={isModalOpen}
+          open={isOpenModal}
           centered={true}
           footer={null}
           onCancel={() => {
-            setIsModalOpen(false);
+            dispatch(closeModal())
             setIdCoin({idCoin: '', name: '', price: ''})
             }}>
           <ModalTable coin={idCoin} />
