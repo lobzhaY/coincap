@@ -16,7 +16,7 @@ import {
 } from "./components";
 
 import styles from "./info-page.module.scss";
-import { Loader } from "../../components";
+import { Cap, Loader } from "../../components";
 
 const InfoPage: React.FC = () => {
   const { activeCoin } = useAppSelector((state) => state.coins);
@@ -33,28 +33,29 @@ const InfoPage: React.FC = () => {
   }, [id, dispatch]);
 
   const handleGoBack = () => {
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <>
-      {!isLoading && activeCoin && id ? (
-        <div className={styles.itemContainer}>
-          <CoinWidget
-            coinName={activeCoin.name}
-            coinSymbol={activeCoin.symbol}
-          />
+      {!isLoading ? (
+        activeCoin && id ? (
+          <div className={styles.itemContainer}>
+            <CoinWidget
+              coinName={activeCoin.name}
+              coinSymbol={activeCoin.symbol}
+            />
 
-          <QuantityForm
-            idCoin={id}
-            price={activeCoin.priceUsd}
-            name={activeCoin.name}
-          />
+            <QuantityForm
+              idCoin={id}
+              price={activeCoin.priceUsd}
+              name={activeCoin.name}
+            />
 
-          <div className={styles.dataContainer}>
-            <ItemTable dataCoin={activeCoin} />
-            <LineRecharts coinId={id} />
-          </div>
+            <div className={styles.dataContainer}>
+              <ItemTable dataCoin={activeCoin} />
+              <LineRecharts coinId={id} />
+            </div>
 
             <ConfigProvider
               theme={{
@@ -64,14 +65,21 @@ const InfoPage: React.FC = () => {
                 },
               }}
             >
-              <Button type='primary' className={styles.buttonContainer} onClick={handleGoBack}>
+              <Button
+                type='primary'
+                className={styles.buttonContainer}
+                onClick={handleGoBack}
+              >
                 <div className={styles.button}>
                   <LeftSquareOutlined className={styles.icon} />
                   <span>Back</span>
                 </div>
               </Button>
             </ConfigProvider>
-        </div>
+          </div>
+        ) : (
+          <Cap />
+        )
       ) : (
         <Loader />
       )}
