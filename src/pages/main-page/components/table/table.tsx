@@ -15,7 +15,6 @@ import styles from './table.module.scss';
 import { addDollarSign, formatNums, formatToBillion } from '../../../../utils/format-nums';
 import { getChangePercentColor } from '../../../../utils/get-colors';
 import { closeModal, openModal } from '../../../../redux/slices/app-slice';
-import { Cap } from '../../../../components';
 
 type OneCoinTableType = {
   changePercent24Hr: string; 
@@ -63,7 +62,6 @@ export const DataTable: React.FC = () => {
   return (
     <>
       <div className={styles.tableContainer}>
-        {dataTable && dataTable.length > 0 ? (
         <ConfigProvider
           theme={{
             token: {
@@ -144,10 +142,7 @@ export const DataTable: React.FC = () => {
               }}
             />
           </Table>
-        </ConfigProvider>) : (
-          <Cap />
-        )
-}
+        </ConfigProvider>
       </div>
 
       <ConfigProvider

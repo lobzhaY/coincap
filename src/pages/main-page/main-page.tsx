@@ -11,7 +11,7 @@ import {
   synhronizeCoinsPrice,
 } from "../../redux/slices/shopping-cart";
 import { getTotalPrice } from "../../utils/get-total-price";
-import { Loader } from "../../components";
+import { Cap, Loader } from "../../components";
 
 const MainPage: React.FC = () => {
   const { cart } = useAppSelector((state) => state.shoppingCart);
@@ -48,10 +48,14 @@ const MainPage: React.FC = () => {
   return (
     <>
       {!isLoading ? (
-        <main>
-          <DataTable />
-          <TablePagination />
-        </main>
+        allCoins.length > 0 ? (
+          <main>
+            <DataTable />
+            <TablePagination />
+          </main>
+        ) : (
+          <Cap />
+        )
       ) : (
         <Loader />
       )}

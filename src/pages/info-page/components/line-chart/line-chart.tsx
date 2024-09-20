@@ -1,19 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
+import { VictoryArea, VictoryAxis, VictoryChart } from "victory";
 
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { fetchHistoryData } from '../../../../redux/actions/get-coins-asynk-thunk';
+import { useAppDispatch, useAppSelector } from "../../../../hooks";
+import { fetchHistoryData } from "../../../../redux/actions/get-coins-asynk-thunk";
 
-import { HistoryCoinType } from '../../../../types/coin.__types__';
+import { HistoryCoinType } from "../../../../types/coin.__types__";
 
 type DataRechartType = {
   name: string;
@@ -34,7 +26,9 @@ export const LineRecharts: React.FC<LineRechartsProps> = ({ coinId }) => {
     const arr = arrTenDays.map((elem) => {
       const objDate = new Date(elem.date);
       return {
-        name: `${objDate.getDate()}.${objDate.getMonth() + 1}.${objDate.getFullYear()}`,
+        name: `${objDate.getDate()}.${
+          objDate.getMonth() + 1
+        }.${objDate.getFullYear()}`,
         price: Number(elem.priceUsd).toFixed(2),
       };
     });
@@ -42,7 +36,7 @@ export const LineRecharts: React.FC<LineRechartsProps> = ({ coinId }) => {
   }
 
   useEffect(() => {
-    dispatch(fetchHistoryData({ id: coinId, interval: 'd1' }));
+    dispatch(fetchHistoryData({ id: coinId, interval: "d1" }));
   }, [dispatch, coinId]);
 
   useEffect(() => {
@@ -52,25 +46,42 @@ export const LineRecharts: React.FC<LineRechartsProps> = ({ coinId }) => {
   }, [historyCoin, coinId]);
 
   return (
-    <div style={{ width: '100%' }}>
-      <ResponsiveContainer width="100%" height={200}>
-        <LineChart
-          width={500}
-          height={200}
-          data={dataRecharts}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Line type="monotone" dataKey="price" stroke="#8884d8" fill="#8884d8" />
-        </LineChart>
-      </ResponsiveContainer>
+    <div style={{ width: "100%" }}>
+      {dataRecharts.length > 0 && (
+        <VictoryChart width={700} height={200}>
+          <VictoryArea
+            style={{ data: { fill: "#AE0A8A" } }}
+            data={dataRecharts}
+            x='name'
+            y='price'
+            animate={{
+              duration: 2000,
+              onLoad: { duration: 1000 },
+            }}
+            interpolation='natural'
+          />
+
+          <VictoryAxis
+            tickFormat={(t, index) => {
+              const tickStep = 5;
+              if (index % tickStep === 0) {
+                return t;
+              }
+              return "";
+            }}
+          />
+
+          <VictoryAxis
+            dependentAxis
+            tickFormat={(tick, index, ticks) => {
+              if (index === 0 || tick !== ticks[index - 1]) {
+                return tick;
+              }
+              return "";
+            }}
+          />
+        </VictoryChart>
+      )}
     </div>
   );
 };
