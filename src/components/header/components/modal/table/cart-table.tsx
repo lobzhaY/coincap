@@ -1,11 +1,17 @@
+import { useEffect, useState } from "react";
+
 import { ConfigProvider, Table } from "antd";
 import { CloseSquareOutlined } from "@ant-design/icons";
 
-import styles from "./cart-table.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../../../hooks";
-import { useEffect, useState } from "react";
 import { CoinType, deleteCoinFromCart } from "../../../../../redux/slices/shopping-cart";
+
+import { withMessage } from "../../../../../hoc/with-message";
+
 import { addDollarSign, formatNums } from "../../../../../utils/format-nums";
+import { getDeleteSuccessMessage } from "../../../../../utils/create-messages";
+
+import styles from "./cart-table.module.scss";
 
 type DataTable = {
   id: string;
@@ -14,7 +20,11 @@ type DataTable = {
   totalPrice: string;
 };
 
-export const TableCart: React.FC = () => {
+type TableCartComponentProps = {
+  showSuccessMessage: (message: string) => void;
+}
+
+const TableCartComponent: React.FC<TableCartComponentProps> = ({showSuccessMessage}) => {
   const { Column } = Table;
   const [dataTable, setDataTable] = useState<DataTable[]>();
   const { cart } = useAppSelector((state) => state.shoppingCart);
@@ -37,7 +47,7 @@ export const TableCart: React.FC = () => {
   return (
     <>
       {!dataTable || dataTable.length === 0 ? (
-        <p>Add some coins first</p>
+        <p className={styles.cap}>Add some coins first</p>
       ) : (
         <div className={styles.tableContainer}>
           <ConfigProvider
@@ -95,6 +105,7 @@ export const TableCart: React.FC = () => {
                   return {
                     onClick: () => {
                       dispatch(deleteCoinFromCart(record.id))
+                      showSuccessMessage(getDeleteSuccessMessage(record.id))
                     },
                   };
                 }}
@@ -106,3 +117,5 @@ export const TableCart: React.FC = () => {
     </>
   );
 };
+
+export const TableCart = withMessage(TableCartComponent);
