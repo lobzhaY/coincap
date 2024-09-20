@@ -26,13 +26,18 @@ const QuantityFormComponent: React.FC<QuantityFormProps> = ({idCoin, price, name
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleAddCoin();
+    }
+  };
+
   const handleAddCoin = () => {
     if (coinQuantity && coinQuantity > 0) {
       dispatch(addCoinToCart({id: idCoin, quantity: coinQuantity, price: price, name: name}));
       showSuccessMessage(getAddSuccessMessage(idCoin));
       setCoinQuantity(undefined);
       dispatch(closeModal(null));
-
     }
   };
 
@@ -49,7 +54,7 @@ const QuantityFormComponent: React.FC<QuantityFormProps> = ({idCoin, price, name
               },
             },
           }}>
-          <InputNumber className={styles.input} controls={false} onChange={onChange} value={coinQuantity}/>
+          <InputNumber className={styles.input} controls={false} onChange={onChange} value={coinQuantity} onKeyDown={handleKeyDown} />
         </ConfigProvider>
         <ConfigProvider
           theme={{
