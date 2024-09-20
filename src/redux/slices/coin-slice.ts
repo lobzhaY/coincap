@@ -4,7 +4,6 @@ import {
   fetchActiveCoinData,
   fetchData,
   fetchHistoryData,
-  fetchTopCoinsData,
 } from '../actions/get-coins-asynk-thunk';
 
 import { HistoryCoinType, OneCoinType } from '../../types';
@@ -60,6 +59,8 @@ const coinsSlice = createSlice({
           state.offset = (state.currentPage - 1) * state.limit;
           state.coins = action.payload.slice(state.offset, state.currentPage * state.limit);
         }
+
+        state.headerCoin = action.payload.slice(0, 3);
       })
       .addCase(fetchHistoryData.fulfilled, (state, action: PayloadAction<HistoryCoinType[]>) => {
         state.historyCoin = action.payload;
@@ -67,9 +68,6 @@ const coinsSlice = createSlice({
       .addCase(fetchActiveCoinData.fulfilled, (state, action: PayloadAction<OneCoinType>) => {
         state.activeCoin = action.payload;
       })
-      .addCase(fetchTopCoinsData.fulfilled, (state, action: PayloadAction<OneCoinType[]>) => {
-        state.headerCoin = action.payload;
-      });
   },
 });
 

@@ -4,7 +4,6 @@ import {
   getCoins,
   getHistoryCoin,
   getActiveCoin,
-  getTopCoins,
 } from "../../api";
 import { HistoryCoinType, OneCoinType } from "../../types";
 
@@ -42,11 +41,3 @@ export const fetchActiveCoinData = createAsyncThunk<
   }
 });
 
-export const fetchTopCoinsData = createAsyncThunk<
-  OneCoinType[],
-  number,
-  { rejectValue: string }
->("coins/fetchTopCoinsData", async (limit) => {
-  const { data } = await getTopCoins(limit);
-  return data;
-});

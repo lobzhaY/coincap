@@ -15,7 +15,3 @@ export const getActiveCoin = async (id: string) => {
   return await response.json();
 };
 
-export const getTopCoins = async (limit: number) => {
-  const response = await fetch(`${COIN_API}?limit=${limit}`);
-  return await response.json();
-};
