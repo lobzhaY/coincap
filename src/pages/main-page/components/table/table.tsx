@@ -13,29 +13,14 @@ import {
 
 import { withModal } from "../../../../hoc/with-modal";
 
-import {
-  addDollarSign,
-  formatNums,
-  formatToBillion,
-} from "../../../../utils/format-nums";
 import { getChangePercentColor } from "../../../../utils/get-colors";
-
-import { OneCoinType } from "../../../../types";
+import { transformDataTable } from "./utils/transform-data";
 
 import { MODAL } from "../../../../constants/modal";
 
-import styles from "./table.module.scss";
+import { OneCoinTableType } from "./types/types";
 
-type OneCoinTableType = {
-  changePercent24Hr: string;
-  id: string;
-  marketCapUsd: string;
-  name: string;
-  priceUsd: string;
-  rank: string;
-  symbol: string;
-  vwap24Hr: string;
-};
+import styles from "./table.module.scss";
 
 export const DataTableContainer: React.FC = () => {
   const { Column } = Table;
@@ -49,19 +34,6 @@ export const DataTableContainer: React.FC = () => {
 
   const { coins } = useAppSelector((state) => state.coins);
   const [dataTable, setDataTable] = useState<OneCoinTableType[]>();
-
-  const transformDataTable = (coins: OneCoinType[]): OneCoinTableType[] => {
-    return coins.map((coin) => ({
-      changePercent24Hr: addDollarSign(formatNums(coin.changePercent24Hr)),
-      id: coin.id,
-      marketCapUsd: addDollarSign(formatToBillion(coin.marketCapUsd)),
-      name: coin.name,
-      priceUsd: addDollarSign(formatNums(coin.priceUsd)),
-      rank: coin.rank,
-      symbol: coin.symbol,
-      vwap24Hr: addDollarSign(formatNums(coin.vwap24Hr)),
-    }));
-  };
 
   useEffect(() => {
     setDataTable(transformDataTable(coins));

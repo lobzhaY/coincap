@@ -4,16 +4,16 @@ import { Table } from "antd";
 import { CloseSquareOutlined } from "@ant-design/icons";
 
 import { useAppDispatch, useAppSelector } from "../../../../../hooks";
-import { CoinType, deleteCoinFromCart } from "../../../../../redux/slices/shopping-cart";
+import { deleteCoinFromCart } from "../../../../../redux/slices/shopping-cart";
 
 import { withMessage } from "../../../../../hoc/with-message";
 
-import { addDollarSign, formatNums } from "../../../../../utils/format-nums";
 import { getDeleteSuccessMessage } from "../../../../../utils/create-messages";
 
 import styles from "./cart-table.module.scss";
+import { transformDataTable } from "./utils/utils";
 
-type DataTable = {
+export type DataTable = {
   id: string;
   name: string;
   price: string;
@@ -29,16 +29,6 @@ const TableCartComponent: React.FC<TableCartComponentProps> = ({showSuccessMessa
   const [dataTable, setDataTable] = useState<DataTable[]>();
   const { cart } = useAppSelector((state) => state.shoppingCart);
   const dispatch = useAppDispatch();
-
-  const transformDataTable = (cart: CoinType[]): DataTable[] => {
-    return cart.map((coin) => {
-      return {
-        ...coin,
-        price: addDollarSign(formatNums(coin.price)),
-        totalPrice: addDollarSign(formatNums(`${coin.totalPrice}`)),
-      };
-    });
-  };
 
   useEffect(() => {
     setDataTable(transformDataTable(cart));

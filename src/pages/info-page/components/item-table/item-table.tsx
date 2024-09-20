@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
 import { Table } from 'antd';
 
 import { getChangePercentColor } from '../../../../utils/get-colors';
-import { addDollarSign, addProcentSign, formatNums, formatToBillion, formatToMillion } from '../../../../utils/format-nums';
+
+import { createTableObj } from '../../utils/line-chart';
 
 import { OneCoinType } from '../../../../types';
 
 import styles from './item-table.module.scss';
+
 
 type ItemTableProps = {
   dataCoin: OneCoinType;
@@ -25,99 +27,11 @@ export const ItemTable: React.FC<ItemTableProps> = ({ dataCoin }) => {
 
   const [dataTable, setDataTable] = useState<DataTableType[]>([]);
 
-  const createTableObj = useCallback((dataObj: OneCoinType) => {
-
-    const objKeys = Object.keys(dataObj).filter(
-      (elem) =>
-        elem !== 'id' &&
-        elem !== 'rank' &&
-        elem !== 'symbol' &&
-        elem !== 'name' &&
-        elem !== 'marketCapUsd' &&
-        elem !== 'priceUsd'
-    );
- 
-    const dataVal = objKeys.map((elem) => {
-      return {
-        id: elem,
-        key: switchTableKey(elem),
-        value: switchSing(elem, dataObj),
-      };
-    });
-
-    const dataTableVal = [
-      {
-        id: 'priceUsd',
-        key: 'Price',
-        value: addDollarSign(formatNums(dataObj.priceUsd)),
-      },
-      ...dataVal,
-    ];
-
-    setDataTable(dataTableVal);
-  }, []);
-
   useEffect(() => {
     if (dataCoin) {
-      createTableObj(dataCoin);
+      setDataTable(createTableObj(dataCoin));
     }
-  }, [dataCoin, createTableObj]);
-
-  const switchTableKey = (key: string) => {
-    let stringKey = '';
-    switch (key) {
-      case 'supply':
-        stringKey = 'Available supply for trading';
-        break;
-      case 'maxSupply':
-        stringKey = 'Total quantity of asset issued';
-        break;
-      case 'volumeUsd24Hr':
-        stringKey = 'Quantity of trading volume over the last 24h';
-        break;
-      case 'changePercent24Hr':
-        stringKey = 'The direction and value change in the last 24h';
-        break;
-      case 'vwap24Hr':
-        stringKey = 'Volume Weighted Average Price in the last 24h';
-        break;
-      case 'explorer':
-        stringKey = 'Explorer';
-        break;
-      default:
-        stringKey = key;
-    }
-    return stringKey;
-  };
-
-  const switchSing = (key: string, dataObj) => {
-    let stringValue = '';
-    switch (key) {
-      case 'supply':
-        stringValue = addDollarSign(formatToMillion(dataObj[key]));
-        break;
-      case 'maxSupply':
-        stringValue = addDollarSign(formatToMillion(dataObj[key]));
-        break;
-      case 'volumeUsd24Hr':
-        stringValue = addDollarSign(formatToBillion(dataObj[key]));
-        break;
-      case 'changePercent24Hr':
-        stringValue = addProcentSign(formatNums(dataObj[key]));
-        break;
-      case 'vwap24Hr':
-        stringValue =addDollarSign(formatNums(dataObj[key]));
-        break;
-      case 'explorer':
-        stringValue = dataObj[key];
-        break;
-      default:
-        stringValue = dataObj[key];
-    }
-    return stringValue;
-  }
-
- 
+  }, [dataCoin]);
 
   return (
     <div className={styles.tableContainer}>
