@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Button, ConfigProvider } from "antd";
 import { LeftSquareOutlined } from "@ant-design/icons";
@@ -22,6 +22,7 @@ const InfoPage: React.FC = () => {
   const { activeCoin } = useAppSelector((state) => state.coins);
   const { isLoading } = useAppSelector((state) => state.app);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -30,6 +31,10 @@ const InfoPage: React.FC = () => {
       dispatch(fetchActiveCoinData(id));
     }
   }, [id, dispatch]);
+
+  const handleGoBack = () => {
+    navigate('/');
+  }
 
   return (
     <>
@@ -51,7 +56,6 @@ const InfoPage: React.FC = () => {
             <LineRecharts coinId={id} />
           </div>
 
-          <Link to='/'>
             <ConfigProvider
               theme={{
                 token: {
@@ -60,14 +64,13 @@ const InfoPage: React.FC = () => {
                 },
               }}
             >
-              <Button type='primary' className={styles.buttonContainer}>
+              <Button type='primary' className={styles.buttonContainer} onClick={handleGoBack}>
                 <div className={styles.button}>
                   <LeftSquareOutlined className={styles.icon} />
                   <span>Back</span>
                 </div>
               </Button>
             </ConfigProvider>
-          </Link>
         </div>
       ) : (
         <Loader />
