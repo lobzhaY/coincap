@@ -1,4 +1,4 @@
-import { ConfigProvider, Modal } from "antd";
+import { Modal } from "antd";
 
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { closeModal, removeModalBuyPayload } from "../redux/slices/app-slice";
@@ -17,13 +17,6 @@ export const withModal = (WrappedComponent: React.FC) => {
       <>
         <WrappedComponent />
         {typeModal === MODAL.buy ? (
-          <ConfigProvider
-            theme={{
-              token: {
-                borderRadiusLG: 1,
-              },
-            }}
-          >
             <Modal
               open={isOpenModal}
               centered={true}
@@ -35,15 +28,7 @@ export const withModal = (WrappedComponent: React.FC) => {
             >
               <ModalTable />
             </Modal>
-          </ConfigProvider>
         ) : (
-          <ConfigProvider
-            theme={{
-              token: {
-                borderRadiusLG: 1,
-              },
-            }}
-          >
             <Modal
               open={isOpenModal}
               centered={true}
@@ -53,7 +38,6 @@ export const withModal = (WrappedComponent: React.FC) => {
             >
               <ModalShopping />
             </Modal>
-          </ConfigProvider>
         )}
       </>
     );

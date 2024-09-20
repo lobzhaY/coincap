@@ -17,6 +17,7 @@ import {
 
 import styles from "./info-page.module.scss";
 import { Cap, Loader } from "../../components";
+import { themeInfoPage } from "../../styles/config-provider";
 
 const InfoPage: React.FC = () => {
   const { activeCoin } = useAppSelector((state) => state.coins);
@@ -58,12 +59,7 @@ const InfoPage: React.FC = () => {
             </div>
 
             <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: "#EF880D",
-                  colorPrimaryHover: "#AE0A8A",
-                },
-              }}
+              theme={themeInfoPage}
             >
               <Button
                 type='primary'

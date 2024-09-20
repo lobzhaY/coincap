@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { ConfigProvider, Table } from "antd";
+import { Table } from "antd";
 import { CloseSquareOutlined } from "@ant-design/icons";
 
 import { useAppDispatch, useAppSelector } from "../../../../../hooks";
@@ -50,22 +50,6 @@ const TableCartComponent: React.FC<TableCartComponentProps> = ({showSuccessMessa
         <p className={styles.cap}>Add some coins first</p>
       ) : (
         <div className={styles.tableContainer}>
-          <ConfigProvider
-            theme={{
-              token: {
-                colorPrimary: "#AE0A8A",
-                borderRadius: 1,
-                fontFamily: '"Roboto", sans-serif',
-              },
-              components: {
-                Table: {
-                  borderColor: "#fad0f1",
-                  headerBg: "#eee0e0",
-                  headerBorderRadius: 1,
-                },
-              },
-            }}
-          >
             <Table
               dataSource={dataTable}
               pagination={false}
@@ -111,7 +95,6 @@ const TableCartComponent: React.FC<TableCartComponentProps> = ({showSuccessMessa
                 }}
               />
             </Table>
-          </ConfigProvider>
         </div>
       )}
     </>

@@ -2,13 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { ConfigProvider, Table } from 'antd';
+import { Table } from 'antd';
+
+import { getChangePercentColor } from '../../../../utils/get-colors';
+import { addDollarSign, addProcentSign, formatNums, formatToBillion, formatToMillion } from '../../../../utils/format-nums';
 
 import { OneCoinType } from '../../../../types';
 
 import styles from './item-table.module.scss';
-import { getChangePercentColor } from '../../../../utils/get-colors';
-import { addDollarSign, addProcentSign, formatNums, formatToBillion, formatToMillion } from '../../../../utils/format-nums';
 
 type ItemTableProps = {
   dataCoin: OneCoinType;
@@ -120,21 +121,6 @@ export const ItemTable: React.FC<ItemTableProps> = ({ dataCoin }) => {
 
   return (
     <div className={styles.tableContainer}>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: '#AE0A8A',
-            borderRadius: 1,
-            fontFamily: '"Roboto", sans-serif',
-          },
-          components: {
-            Table: {
-              borderColor: '#fad0f1',
-              headerBg: '#eee0e0',
-              headerBorderRadius: 1,
-            },
-          },
-        }}>
         <Table dataSource={dataTable} pagination={false} rowKey="key">
           <Column title={() => <p>Information</p>} dataIndex="key" key="key" />
           <Column
@@ -159,7 +145,6 @@ export const ItemTable: React.FC<ItemTableProps> = ({ dataCoin }) => {
           }
           />
         </Table>
-      </ConfigProvider>
     </div>
   );
 };

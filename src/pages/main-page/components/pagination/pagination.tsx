@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { changePaginationCurrentPage } from '../../../../redux/slices/coin-slice';
 
 import styles from './pagination.module.scss';
+import { themePagination } from '../../../../styles/config-provider';
 
 export const TablePagination: React.FC = () => {
   const { currentPage, limit, allCoins } = useAppSelector((state) => state.coins);
@@ -16,19 +17,7 @@ export const TablePagination: React.FC = () => {
   return (
     <div className={styles.paginationContainer}>
       <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: '#AE0A8A',
-            borderRadius: 1,
-            fontFamily: '"Roboto Condensed", sans-serif',
-          },
-          components: {
-            Pagination: {
-              itemActiveBg: '#fad0f1',
-              itemBg: '#f2eaea',
-            },
-          },
-        }}>
+        theme={themePagination}>
         <Pagination
           defaultCurrent={1}
           current={currentPage}
