@@ -1,0 +1,20 @@
+@use '../../styles/mixins';
+
+.errorPage {
+    @include mixins.display-center;
+
+    width: 100vw;
+    height: 100vh;
+
+    div {
+        @include mixins.display-column(1.5rem);
+
+        h1 {
+            @include mixins.font-header(var(--font-size-4), var(--font-weight-3), var(--color-2));
+        }
+
+        p {
+            @include mixins.font-header(var(--font-size-3), var(--font-weight-1));
+        }
+    }
+}

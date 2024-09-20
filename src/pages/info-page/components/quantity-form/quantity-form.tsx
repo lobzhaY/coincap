@@ -4,6 +4,7 @@ import styles from './quantity-form.module.scss';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { addCoinToCart } from '../../../../redux/slices/shopping-cart';
+import { closeModal } from '../../../../redux/slices/app-slice';
 
 type QuantityFormProps = {
   idCoin: string,
@@ -27,6 +28,7 @@ export const QuantityForm: React.FC<QuantityFormProps> = ({idCoin, price, name})
     if (coinQuantity && coinQuantity > 0) {
       dispatch(addCoinToCart({id: idCoin, quantity: coinQuantity, price: price, name: name}));
       setCoinQuantity(undefined);
+      dispatch(closeModal());
     }
   };
 

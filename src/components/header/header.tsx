@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { ConfigProvider, Modal } from 'antd';
 import { ShoppingOutlined } from '@ant-design/icons';
@@ -11,11 +11,12 @@ import { ModalShopping, PopularCoin } from './components';
 import styles from './header.module.scss';
 import { addProcentSign, formatNums } from '../../utils/format-nums';
 import { getPresentTotalDiff, getPriceDiff } from '../../utils/get-total-price';
+import { closeModal, openModal } from '../../redux/slices/app-slice';
 
 export const Header: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { headerCoin } = useAppSelector((state) => state.coins);
   const { totalCartPrice, totalPriceDiff } = useAppSelector((state) => state.shoppingCart);
+  const { isOpenModal } = useAppSelector((state) => state.app);
 
   const dispatch = useAppDispatch();
 
@@ -35,7 +36,7 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        <div className={styles.shoppingContainer} onClick={() => setIsModalOpen(true)}>
+        <div className={styles.shoppingContainer} onClick={() => dispatch(openModal())}>
           <ShoppingOutlined className={styles.soppingCartIcon} />
           <div className={styles.shoppingCart}>
             <h3>Итого</h3>
@@ -55,11 +56,11 @@ export const Header: React.FC = () => {
           },
         }}>
         <Modal
-          open={isModalOpen}
+          open={isOpenModal}
           centered={true}
           footer={null}
           width="75%"
-          onCancel={() => setIsModalOpen(false)}>
+          onCancel={() => dispatch(closeModal())}>
           <ModalShopping />
         </Modal>
       </ConfigProvider>

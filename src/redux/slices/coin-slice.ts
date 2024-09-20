@@ -59,6 +59,9 @@ const coinsSlice = createSlice({
       .addCase(fetchActiveCoinData.fulfilled, (state, action: PayloadAction<OneCoinType>) => {
         state.activeCoin = action.payload;
       })
+      .addCase(fetchActiveCoinData.rejected, (state, action) => {
+        
+      })
       .addCase(fetchTopCoinsData.fulfilled, (state, action: PayloadAction<OneCoinType[]>) => {
         state.headerCoin = action.payload;
       });
