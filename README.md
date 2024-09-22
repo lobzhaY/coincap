@@ -1,50 +1,47 @@
-# React + TypeScript + Vite
+# Coincap
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SPA для отслеживания криптовалют и формирования собственного портфеля.
+Здесь вы сможете добавлять и удалять монеты в свой собственный портфель, сделить за обновлением его стоимости, а также отслеживать динамику топовых криптовалют.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Ссылка на деплой приложения]()
 
-## Expanding the ESLint configuration
+## Технологии
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Список используемых технологий и библиотек:
 
-- Configure the top-level `parserOptions` property like this:
+- React
+- Redux Toolkit
+- React Router
+- Fetch для работы с API
+- Antd
+- CSS Modules
+- Vite
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Установка
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Клонируйте репозиторий:
+  ```js
+    git clone https://github.com/lobzhaY/coincap.git
+  ```
+2. Перейдите в директорию проекта:
+  ```js
+    cd coincap
+  ```
+3. Установите зависимости:
+  ```js
+    npm install
+  ```
+4. Запустите приложение в режиме разработки:
+ ```js
+     npm run dev
+   ```
+5. Использование:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+   Перейдите по адресу http://localhost:5173/ для работы с приложением.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+
+##  Дополнительные материалы
+
+API: Coincap - https://docs.coincap.io/
