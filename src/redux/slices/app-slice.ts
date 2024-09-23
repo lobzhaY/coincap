@@ -48,25 +48,25 @@ const appSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchActiveCoinData.rejected, (state, action) => {
+      .addCase(fetchActiveCoinData.rejected, (state) => {
         state.isError = true;
         state.isLoading = false;
       })
-      .addCase(fetchActiveCoinData.pending, (state, action) => {
+      .addCase(fetchActiveCoinData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchActiveCoinData.fulfilled, (state, action) => {
+      .addCase(fetchActiveCoinData.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(fetchData.fulfilled, (state, action) => {
+      .addCase(fetchData.fulfilled, (state) => {
         state.isLoading = false;
         state.isError = false;
       })
-      .addCase(fetchData.rejected, (state, action) => {
+      .addCase(fetchData.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       })
-      .addCase(fetchData.pending, (state, action) => {
+      .addCase(fetchData.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
       });

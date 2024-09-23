@@ -21,10 +21,12 @@ export type DataTable = {
 };
 
 type TableCartComponentProps = {
-  showSuccessMessage: (message: string) => void;
-}
+  showSuccessMessage?: (message: string) => void;
+};
 
-const TableCartComponent: React.FC<TableCartComponentProps> = ({showSuccessMessage}) => {
+const TableCartComponent: React.FC<TableCartComponentProps> = ({
+  showSuccessMessage,
+}) => {
   const { Column } = Table;
   const [dataTable, setDataTable] = useState<DataTable[]>();
   const { cart } = useAppSelector((state) => state.shoppingCart);
@@ -40,51 +42,53 @@ const TableCartComponent: React.FC<TableCartComponentProps> = ({showSuccessMessa
         <p className={styles.cap}>Add some coins first</p>
       ) : (
         <div className={styles.tableContainer}>
-            <Table
-              dataSource={dataTable}
-              pagination={false}
-              size={"middle"}
-              rowKey='id'
-            >
-              <Column
-                title={() => <p className={styles.columnTitle}>Название</p>}
-                dataIndex='name'
-                key='name'
-                className={styles.tableField}
-              />
-              <Column
-                title={() => <p className={styles.columnTitle}>Цена</p>}
-                dataIndex='price'
-                key='price'
-                className={styles.tableField}
-              />
-              <Column
-                title={() => <p className={styles.columnTitle}>Кол-во</p>}
-                dataIndex='quantity'
-                key='quantity'
-                className={styles.tableField}
-              />
-              <Column
-                title={() => <p className={styles.columnTitle}>Итого</p>}
-                dataIndex='totalPrice'
-                key='totalPrice'
-                className={`${styles.tableField} ${styles.tableWeight}`}
-              />
+          <Table
+            dataSource={dataTable}
+            pagination={false}
+            size={"middle"}
+            rowKey='id'
+          >
+            <Column
+              title={() => <p className={styles.columnTitle}>Название</p>}
+              dataIndex='name'
+              key='name'
+              className={styles.tableField}
+            />
+            <Column
+              title={() => <p className={styles.columnTitle}>Цена</p>}
+              dataIndex='price'
+              key='price'
+              className={styles.tableField}
+            />
+            <Column
+              title={() => <p className={styles.columnTitle}>Кол-во</p>}
+              dataIndex='quantity'
+              key='quantity'
+              className={styles.tableField}
+            />
+            <Column
+              title={() => <p className={styles.columnTitle}>Итого</p>}
+              dataIndex='totalPrice'
+              key='totalPrice'
+              className={`${styles.tableField} ${styles.tableWeight}`}
+            />
 
-              <Column
-                render={() => (
-                  <CloseSquareOutlined className={styles.tableIcon} />
-                )}
-                onCell={(record) => {
-                  return {
-                    onClick: () => {
-                      dispatch(deleteCoinFromCart(record.id))
-                      showSuccessMessage(getDeleteSuccessMessage(record.id))
-                    },
-                  };
-                }}
-              />
-            </Table>
+            <Column
+              render={() => (
+                <CloseSquareOutlined className={styles.tableIcon} />
+              )}
+              onCell={(record) => {
+                return {
+                  onClick: () => {
+                    dispatch(deleteCoinFromCart(record.id));
+                    if (showSuccessMessage) {
+                      showSuccessMessage(getDeleteSuccessMessage(record.id));
+                    }
+                  },
+                };
+              }}
+            />
+          </Table>
         </div>
       )}
     </>

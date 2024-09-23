@@ -20,15 +20,15 @@ export const createRechartsObj = (
   return arr;
 };
 
-export const tickFormatX = (t, index) => {
+export const tickFormatX = (tick: string, index: number) => {
   const tickStep = 5;
   if (index % tickStep === 0) {
-    return t;
+    return tick;
   }
   return "";
 };
 
-export const tickFormatY = (tick, index, ticks) => {
+export const tickFormatY = (tick: string, index: number) => {
   const tickStep = 5;
   if (index % tickStep === 0) {
     return tick;
@@ -63,7 +63,7 @@ export const switchTableKey = (key: string) => {
     return stringKey;
   };
 
-export const switchSing = (key: string, dataObj) => {
+export const switchSing = (key: string, dataObj: OneCoinType) => {
     let stringValue = '';
     switch (key) {
       case 'supply':
@@ -85,7 +85,7 @@ export const switchSing = (key: string, dataObj) => {
         stringValue = dataObj[key];
         break;
       default:
-        stringValue = dataObj[key];
+        return stringValue;
     }
     return stringValue;
   }

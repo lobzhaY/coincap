@@ -17,7 +17,7 @@ type QuantityFormProps = {
   idCoin: string;
   price: string;
   name: string;
-  showSuccessMessage: (message: string) => void;
+  showSuccessMessage?: (message: string) => void;
 };
 
 const QuantityFormComponent: React.FC<QuantityFormProps> = ({
@@ -52,7 +52,9 @@ const QuantityFormComponent: React.FC<QuantityFormProps> = ({
           name: name,
         })
       );
-      showSuccessMessage(getAddSuccessMessage(idCoin));
+      if (showSuccessMessage) {
+        showSuccessMessage(getAddSuccessMessage(idCoin));
+      }
       setCoinQuantity(undefined);
       dispatch(closeModal(null));
     }
