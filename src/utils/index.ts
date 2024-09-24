@@ -1,0 +1,1 @@
+export { getNewAlertMessage } from './create-messages';

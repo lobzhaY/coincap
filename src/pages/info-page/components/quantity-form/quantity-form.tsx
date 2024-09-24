@@ -8,7 +8,9 @@ import { closeModal } from "../../../../redux/slices/app-slice";
 
 import { withMessage } from "../../../../hoc/with-message";
 
-import { getAddSuccessMessage } from "../../../../utils/create-messages";
+import { getNewAlertMessage } from "../../../../utils/create-messages";
+
+import { MESSAGE } from "../../../../constants/modal";
 
 import styles from "./quantity-form.module.scss";
 
@@ -53,7 +55,7 @@ const QuantityFormComponent: React.FC<QuantityFormProps> = ({
         })
       );
       if (showSuccessMessage) {
-        showSuccessMessage(getAddSuccessMessage(idCoin));
+        showSuccessMessage(getNewAlertMessage(idCoin, MESSAGE.add_success));
       }
       setCoinQuantity(undefined);
       dispatch(closeModal(null));

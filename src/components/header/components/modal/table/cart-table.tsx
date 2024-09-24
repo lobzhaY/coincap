@@ -8,10 +8,11 @@ import { deleteCoinFromCart } from "../../../../../redux/slices/shopping-cart";
 
 import { withMessage } from "../../../../../hoc/with-message";
 
-import { getDeleteSuccessMessage } from "../../../../../utils/create-messages";
+import { getNewAlertMessage } from "../../../../../utils/create-messages";
 
 import styles from "./cart-table.module.scss";
 import { transformDataTable } from "./utils/utils";
+import { MESSAGE } from "../../../../../constants/modal";
 
 export type DataTable = {
   id: string;
@@ -82,7 +83,7 @@ const TableCartComponent: React.FC<TableCartComponentProps> = ({
                   onClick: () => {
                     dispatch(deleteCoinFromCart(record.id));
                     if (showSuccessMessage) {
-                      showSuccessMessage(getDeleteSuccessMessage(record.id));
+                      showSuccessMessage(getNewAlertMessage(record.id, MESSAGE.delete_success));
                     }
                   },
                 };
