@@ -5,15 +5,17 @@ import { openModal } from "../../../../redux/slices/app-slice";
 
 import { withModal } from "../../../../hoc/with-modal";
 
-import { addProcentSign, formatNums } from "../../../../utils/format-nums";
+import { formatBySign, formatNums } from "../../../../utils";
+
 import {
   getPresentTotalDiff,
   getPriceDiff,
 } from "../../../../utils/get-total-price";
 
-import { MODAL } from "../../../../constants/modal";
+import { FORMAT_NUMS, MODAL } from "../../../../constants/modal";
 
 import styles from "./cart.module.scss";
+
 
 const CartComponent: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -39,10 +41,10 @@ const CartComponent: React.FC = () => {
           </span>
           <span>
             (
-            {addProcentSign(
+            {formatBySign(
               formatNums(
                 `${getPresentTotalDiff(totalCartPrice, totalPriceDiff)}`
-              )
+              ), FORMAT_NUMS.PERCENT
             )}
             )
           </span>

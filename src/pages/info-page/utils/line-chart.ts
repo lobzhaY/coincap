@@ -1,5 +1,6 @@
+import { FORMAT_NUMS } from "../../../constants/modal";
 import { HistoryCoinType, OneCoinType } from "../../../types";
-import { addDollarSign, addProcentSign, formatNums, formatToBillion, formatToMillion } from "../../../utils/format-nums";
+import { formatBySign, formatByWords, formatNums } from "../../../utils";
 
 export const formatYear = (date: string) => {
   const objDate = new Date(date);
@@ -67,19 +68,19 @@ export const switchSing = (key: string, dataObj: OneCoinType) => {
     let stringValue = '';
     switch (key) {
       case 'supply':
-        stringValue = addDollarSign(formatToMillion(dataObj[key]));
+        stringValue = formatBySign(formatByWords(dataObj[key], FORMAT_NUMS.MILLION), FORMAT_NUMS.DOLLAR);
         break;
       case 'maxSupply':
-        stringValue = addDollarSign(formatToMillion(dataObj[key]));
+        stringValue = formatBySign(formatByWords(dataObj[key], FORMAT_NUMS.MILLION), FORMAT_NUMS.DOLLAR);
         break;
       case 'volumeUsd24Hr':
-        stringValue = addDollarSign(formatToBillion(dataObj[key]));
+        stringValue = formatBySign(formatByWords(dataObj[key], FORMAT_NUMS.BILLION), FORMAT_NUMS.DOLLAR);
         break;
       case 'changePercent24Hr':
-        stringValue = addProcentSign(formatNums(dataObj[key]));
+        stringValue = formatBySign(formatNums(dataObj[key]), FORMAT_NUMS.PERCENT);
         break;
       case 'vwap24Hr':
-        stringValue =addDollarSign(formatNums(dataObj[key]));
+        stringValue =formatBySign(formatNums(dataObj[key]), FORMAT_NUMS.DOLLAR);
         break;
       case 'explorer':
         stringValue = dataObj[key];
@@ -114,7 +115,7 @@ export const switchSing = (key: string, dataObj: OneCoinType) => {
       {
         id: 'priceUsd',
         key: 'Price',
-        value: addDollarSign(formatNums(dataObj.priceUsd)),
+        value: formatBySign(formatNums(dataObj.priceUsd), FORMAT_NUMS.DOLLAR),
       },
       ...dataVal,
     ];

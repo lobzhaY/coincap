@@ -1,4 +1,5 @@
-import { addDollarSign, formatNums } from '../../../../utils/format-nums';
+import { FORMAT_NUMS } from '../../../../constants/modal';
+import { formatBySign, formatNums } from '../../../../utils';
 import styles from './popular-coin.module.scss';
 
 type PopularCoinProps = {
@@ -11,7 +12,7 @@ export const PopularCoin: React.FC<PopularCoinProps> = ({ coinName, coinPrice })
     <div className={styles.coinWrapper}>
       <h4>{coinName}</h4>
       <p>
-        {addDollarSign(formatNums(coinPrice))}
+        {formatBySign(formatNums(coinPrice), FORMAT_NUMS.DOLLAR)}
       </p>
     </div>
   );

@@ -2,7 +2,8 @@ import { useAppSelector } from '../../../../hooks';
 
 import { TableCart } from './table';
 
-import { addDollarSign, formatNums } from '../../../../utils/format-nums';
+import { formatBySign, formatNums } from '../../../../utils';
+import { FORMAT_NUMS } from '../../../../constants/modal';
 
 import styles from './modal.module.scss';
 
@@ -18,7 +19,7 @@ export const ModalShopping: React.FC = () => {
 
         <div className={styles.summary}>
           <p>Итого:</p>
-          <span> {addDollarSign(formatNums(`${totalCartPrice}`) || '0')}</span>
+          <span> {formatBySign(formatNums(`${totalCartPrice}`) || '0', FORMAT_NUMS.DOLLAR)}</span>
         </div>
       </div>
     </div>
