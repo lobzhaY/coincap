@@ -13,9 +13,9 @@ import {
 } from "../../../../utils/get-total-price";
 
 import { FORMAT_NUMS, MODAL } from "../../../../constants/modal";
+import { HEADER_TEXT } from "../../../../constants/text";
 
 import styles from "./cart.module.scss";
-
 
 const CartComponent: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -30,8 +30,8 @@ const CartComponent: React.FC = () => {
     >
       <ShoppingOutlined className={styles.soppingCartIcon} />
       <div className={styles.shoppingCart}>
-        <h3>Итого</h3>
-        <h2>{formatNums(`${totalCartPrice}`) || 0} USD</h2>
+        <h3>{HEADER_TEXT.total}</h3>
+        <h2>{formatNums(`${totalCartPrice}`) || 0} {HEADER_TEXT.usd}</h2>
         <div className={styles.shoppingCartStatistic}>
           <span>
             {getPriceDiff(totalCartPrice, totalPriceDiff) > 0

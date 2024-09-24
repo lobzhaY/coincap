@@ -1,3 +1,4 @@
+import { HEADER_TEXT } from "../../constants/text";
 import { useAppSelector } from "../../hooks";
 
 import { Cart, PopularCoin } from "./components";
@@ -11,7 +12,7 @@ export const Header: React.FC = () => {
     <>
       <header className={styles.header}>
         <div className={styles.popularCoinContainer}>
-          <h3>Популярные криптовалюты</h3>
+          <h3>{HEADER_TEXT.popularCoins}</h3>
           <div className={styles.coinList}>
             {headerCoin.map((coin, index) => (
               <PopularCoin

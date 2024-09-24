@@ -13,6 +13,7 @@ import { getNewAlertMessage } from "../../../../../utils/create-messages";
 import styles from "./cart-table.module.scss";
 import { transformDataTable } from "./utils/utils";
 import { MESSAGE } from "../../../../../constants/modal";
+import { MODAL_BRIEFCASE_TEXT } from "../../../../../constants/text";
 
 export type DataTable = {
   id: string;
@@ -59,7 +60,7 @@ const TableCartComponent: React.FC<TableCartComponentProps> = ({
   return (
     <>
       {!dataTable || dataTable.length === 0 ? (
-        <p className={styles.cap}>Add some coins first</p>
+        <p className={styles.cap}>{MODAL_BRIEFCASE_TEXT.noCoin}</p>
       ) : (
         <div className={styles.tableContainer} onClick={handleTableClick}>
           <Table
@@ -69,25 +70,25 @@ const TableCartComponent: React.FC<TableCartComponentProps> = ({
             rowKey='id'
           >
             <Column
-              title={() => <p className={styles.columnTitle}>Название</p>}
+              title={() => <p className={styles.columnTitle}>{MODAL_BRIEFCASE_TEXT.name}</p>}
               dataIndex='name'
               key='name'
               className={styles.tableField}
             />
             <Column
-              title={() => <p className={styles.columnTitle}>Цена</p>}
+              title={() => <p className={styles.columnTitle}>{MODAL_BRIEFCASE_TEXT.price}</p>}
               dataIndex='price'
               key='price'
               className={styles.tableField}
             />
             <Column
-              title={() => <p className={styles.columnTitle}>Кол-во</p>}
+              title={() => <p className={styles.columnTitle}>{MODAL_BRIEFCASE_TEXT.quantity}</p>}
               dataIndex='quantity'
               key='quantity'
               className={styles.tableField}
             />
             <Column
-              title={() => <p className={styles.columnTitle}>Итого</p>}
+              title={() => <p className={styles.columnTitle}>{MODAL_BRIEFCASE_TEXT.total}</p>}
               dataIndex='totalPrice'
               key='totalPrice'
               className={`${styles.tableField} ${styles.tableWeight}`}

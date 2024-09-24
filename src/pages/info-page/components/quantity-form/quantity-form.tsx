@@ -13,6 +13,7 @@ import { getNewAlertMessage } from "../../../../utils/create-messages";
 import { MESSAGE } from "../../../../constants/modal";
 
 import styles from "./quantity-form.module.scss";
+import { QUANTITY_FORM_TEXT } from "../../../../constants/text";
 
 
 type QuantityFormProps = {
@@ -64,7 +65,7 @@ const QuantityFormComponent: React.FC<QuantityFormProps> = ({
 
   return (
     <div className={styles.formWrapper}>
-      <h2>Введите количество</h2>
+      <h2>{QUANTITY_FORM_TEXT.enter}</h2>
       <div className={styles.formContainer}>
         <InputNumber
           className={styles.input}
@@ -78,7 +79,7 @@ const QuantityFormComponent: React.FC<QuantityFormProps> = ({
           className={styles.button}
           onClick={handleAddCoin}
         >
-          <span>Купить</span>
+          <span>{QUANTITY_FORM_TEXT.buy}</span>
         </Button>
       </div>
     </div>
