@@ -6,7 +6,7 @@ export const getCoins = async () => {
 };
 
 export const getHistoryCoin = async (id: string, interval: string) => {
-  const response = await fetch(`${COIN_API}/${id}/history?interal=${interval}`);
+  const response = await fetch(`${COIN_API}/${id}/history?interval=${interval}`);
   return await response.json();
 };
 

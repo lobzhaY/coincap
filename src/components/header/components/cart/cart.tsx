@@ -12,7 +12,7 @@ import {
   getPriceDiff,
 } from "../../../../utils/get-total-price";
 
-import { FORMAT_NUMS, MODAL } from "../../../../constants/modal";
+import { FORMAT_NUMS_SIGN, MODAL } from "../../../../constants/modal";
 import { HEADER_TEXT } from "../../../../constants/text";
 
 import styles from "./cart.module.scss";
@@ -44,7 +44,7 @@ const CartComponent: React.FC = () => {
             {formatBySign(
               formatNums(
                 `${getPresentTotalDiff(totalCartPrice, totalPriceDiff)}`
-              ), FORMAT_NUMS.PERCENT
+              ), FORMAT_NUMS_SIGN.PERCENT
             )}
             )
           </span>

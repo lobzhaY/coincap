@@ -1,4 +1,4 @@
-import { FORMAT_NUMS } from '../../../../constants/modal';
+import { FORMAT_NUMS_SIGN } from '../../../../constants/modal';
 import { formatBySign, formatNums } from '../../../../utils';
 import styles from './popular-coin.module.scss';
 
@@ -12,7 +12,7 @@ export const PopularCoin: React.FC<PopularCoinProps> = ({ coinName, coinPrice })
     <div className={styles.coinWrapper}>
       <h4>{coinName}</h4>
       <p>
-        {formatBySign(formatNums(coinPrice), FORMAT_NUMS.DOLLAR)}
+        {formatBySign(formatNums(coinPrice), FORMAT_NUMS_SIGN.DOLLAR)}
       </p>
     </div>
   );

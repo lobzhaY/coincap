@@ -1,3 +1,4 @@
+import { QUANTITY_FORM_TEXT } from "../../../../constants/text";
 import { useAppSelector } from "../../../../hooks";
 import { selectCoinById } from "../../../../redux/selectors/selector";
 
@@ -12,7 +13,7 @@ export const ModalTable: React.FC = () => {
   return (
     <div className={styles.modalTable}>
       <h2 className={styles.modalTitle}>
-        Купить <span>{coin?.name}</span>
+        {QUANTITY_FORM_TEXT.buy} <span>{coin?.name}</span>
       </h2>
       <QuantityForm
         idCoin={coinId}

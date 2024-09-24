@@ -1,4 +1,4 @@
-import { FORMAT_NUMS } from "../../../constants/modal";
+import { FORMAT_NUMS_SIGN, FORMAT_NUMS_WORD } from "../../../constants/modal";
 import { TABLE_COIN_TEXT } from "../../../constants/text";
 import { HistoryCoinType, OneCoinType } from "../../../types";
 import { formatBySign, formatByWords, formatNums } from "../../../utils";
@@ -29,29 +29,29 @@ export const tickFormatCoords = (tick: string, index: number) => {
   return "";
 };
 
-export const switchTableKey = (key: string) => {
+export const switchTableKey = (key: keyof typeof TABLE_COIN_TEXT) => {
   return TABLE_COIN_TEXT[key];
 };
 
-export const switchSing = (key: string, dataObj: OneCoinType) => {
+export const switchSing = (key: keyof typeof TABLE_COIN_TEXT, dataObj: OneCoinType) => {
   const valuesText = {
     supply: formatBySign(
-      formatByWords(dataObj[key], FORMAT_NUMS.MILLION),
-      FORMAT_NUMS.DOLLAR
+      formatByWords(dataObj[key], FORMAT_NUMS_WORD.MILLION),
+      FORMAT_NUMS_SIGN.DOLLAR
     ),
     maxSupply: formatBySign(
-      formatByWords(dataObj[key], FORMAT_NUMS.MILLION),
-      FORMAT_NUMS.DOLLAR
+      formatByWords(dataObj[key], FORMAT_NUMS_WORD.MILLION),
+      FORMAT_NUMS_SIGN.DOLLAR
     ),
     volumeUsd24Hr: formatBySign(
-      formatByWords(dataObj[key], FORMAT_NUMS.BILLION),
-      FORMAT_NUMS.DOLLAR
+      formatByWords(dataObj[key], FORMAT_NUMS_WORD.BILLION),
+      FORMAT_NUMS_SIGN.DOLLAR
     ),
     changePercent24Hr: formatBySign(
       formatNums(dataObj[key]),
-      FORMAT_NUMS.PERCENT
+      FORMAT_NUMS_SIGN.PERCENT
     ),
-    vwap24Hr: formatBySign(formatNums(dataObj[key]), FORMAT_NUMS.DOLLAR),
+    vwap24Hr: formatBySign(formatNums(dataObj[key]), FORMAT_NUMS_SIGN.DOLLAR),
     explorer: dataObj[key],
   };
 
@@ -69,7 +69,7 @@ export const createTableObj = (dataObj: OneCoinType) => {
       elem !== "priceUsd"
   );
 
-  const dataVal = objKeys.map((elem) => {
+  const dataVal = (objKeys as Array<keyof typeof TABLE_COIN_TEXT>).map((elem) => {
     return {
       id: elem,
       key: switchTableKey(elem),
@@ -81,7 +81,7 @@ export const createTableObj = (dataObj: OneCoinType) => {
     {
       id: "priceUsd",
       key: "Price",
-      value: formatBySign(formatNums(dataObj.priceUsd), FORMAT_NUMS.DOLLAR),
+      value: formatBySign(formatNums(dataObj.priceUsd), FORMAT_NUMS_SIGN.DOLLAR),
     },
     ...dataVal,
   ];

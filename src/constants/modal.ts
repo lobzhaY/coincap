@@ -8,27 +8,28 @@ export enum MESSAGE {
   delete_success,
 }
 
-export enum FORMAT_NUMS {
-  SIGN = "sign",
-  WORDS = "words",
-  DOLLAR = "dollar",
-  PERCENT = "percent",
+export enum FORMAT_NUMS_WORD {
   MILLION = "million",
   BILLION = "billion",
 }
 
+export enum FORMAT_NUMS_SIGN {
+  DOLLAR = "dollar",
+  PERCENT = "percent",
+}
+
 export const formatNumsWordData = {
-    [FORMAT_NUMS.MILLION]: {
+    [FORMAT_NUMS_WORD.MILLION]: {
       wordString: "million",
       wordNums: 1e6,
     },
-    [FORMAT_NUMS.BILLION]: {
+    [FORMAT_NUMS_WORD.BILLION]: {
       wordString: "billion",
       wordNums: 1e9,
     },
 };
 
 export const formatNumsSignData = {
-      [FORMAT_NUMS.DOLLAR]: "$",
-      [FORMAT_NUMS.PERCENT]: "%",
+      [FORMAT_NUMS_SIGN.DOLLAR]: "$",
+      [FORMAT_NUMS_SIGN.PERCENT]: "%",
   };
