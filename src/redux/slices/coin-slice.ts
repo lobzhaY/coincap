@@ -1,12 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import {
   fetchActiveCoinData,
   fetchData,
   fetchHistoryData,
-} from '../actions/get-coins-asynk-thunk';
+} from "../actions/get-coins-async-thunk";
 
-import { HistoryCoinType, OneCoinType } from '../../types';
+import { HistoryCoinType, OneCoinType } from "../../types";
 
 type InitialCoinState = {
   allCoins: OneCoinType[];
@@ -31,17 +31,23 @@ const initialState: InitialCoinState = {
 };
 
 const coinsSlice = createSlice({
-  name: 'coins',
+  name: "coins",
   initialState,
   reducers: {
-    changePaginationCurrentPage: (state, action: PayloadAction<{ page: number }>) => {
+    changePaginationCurrentPage: (
+      state,
+      action: PayloadAction<{ page: number }>
+    ) => {
       if (action.payload.page == 1) {
         state.offset = 0;
-        state.coins = state.allCoins.slice(state.offset, action.payload.page * state.limit);
+        state.coins = state.allCoins.slice(
+          state.offset,
+          action.payload.page * state.limit
+        );
       } else {
         state.coins = state.allCoins.slice(
           (action.payload.page - 1) * state.limit,
-          action.payload.page * state.limit,
+          action.payload.page * state.limit
         );
       }
       state.currentPage = action.payload.page;
@@ -49,25 +55,40 @@ const coinsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchData.fulfilled, (state, action: PayloadAction<OneCoinType[]>) => {
-        state.allCoins = action.payload;
+      .addCase(
+        fetchData.fulfilled,
+        (state, action: PayloadAction<OneCoinType[]>) => {
+          state.allCoins = action.payload;
 
-        if (state.currentPage === 1) {
-          state.offset = 0;
-          state.coins = action.payload.slice(state.offset, state.currentPage * state.limit);
-        } else {
-          state.offset = (state.currentPage - 1) * state.limit;
-          state.coins = action.payload.slice(state.offset, state.currentPage * state.limit);
+          if (state.currentPage === 1) {
+            state.offset = 0;
+            state.coins = action.payload.slice(
+              state.offset,
+              state.currentPage * state.limit
+            );
+          } else {
+            state.offset = (state.currentPage - 1) * state.limit;
+            state.coins = action.payload.slice(
+              state.offset,
+              state.currentPage * state.limit
+            );
+          }
+
+          state.headerCoin = action.payload.slice(0, 3);
         }
-
-        state.headerCoin = action.payload.slice(0, 3);
-      })
-      .addCase(fetchHistoryData.fulfilled, (state, action: PayloadAction<HistoryCoinType[]>) => {
-        state.historyCoin = action.payload;
-      })
-      .addCase(fetchActiveCoinData.fulfilled, (state, action: PayloadAction<OneCoinType>) => {
-        state.activeCoin = action.payload;
-      })
+      )
+      .addCase(
+        fetchHistoryData.fulfilled,
+        (state, action: PayloadAction<HistoryCoinType[]>) => {
+          state.historyCoin = action.payload;
+        }
+      )
+      .addCase(
+        fetchActiveCoinData.fulfilled,
+        (state, action: PayloadAction<OneCoinType>) => {
+          state.activeCoin = action.payload;
+        }
+      );
   },
 });
 

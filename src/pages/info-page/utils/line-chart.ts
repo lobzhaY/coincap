@@ -1,5 +1,7 @@
+import { FORMAT_NUMS_SIGN, FORMAT_NUMS_WORD } from "../../../constants/modal";
+import { TABLE_COIN_TEXT } from "../../../constants/text";
 import { HistoryCoinType, OneCoinType } from "../../../types";
-import { addDollarSign, addProcentSign, formatNums, formatToBillion, formatToMillion } from "../../../utils/format-nums";
+import { formatBySign, formatByWords, formatNums } from "../../../utils";
 
 export const formatYear = (date: string) => {
   const objDate = new Date(date);
@@ -8,8 +10,7 @@ export const formatYear = (date: string) => {
   }.${objDate.getFullYear()}`;
 };
 
-export const createRechartsObj = (
-  rechartsObj: HistoryCoinType[]) => {
+export const createRechartsObj = (rechartsObj: HistoryCoinType[]) => {
   const arrTenDays = rechartsObj.slice(-30);
   const arr = arrTenDays.map((elem) => {
     return {
@@ -20,7 +21,7 @@ export const createRechartsObj = (
   return arr;
 };
 
-export const tickFormatX = (tick: string, index: number) => {
+export const tickFormatCoords = (tick: string, index: number) => {
   const tickStep = 5;
   if (index % tickStep === 0) {
     return tick;
@@ -28,96 +29,62 @@ export const tickFormatX = (tick: string, index: number) => {
   return "";
 };
 
-export const tickFormatY = (tick: string, index: number) => {
-  const tickStep = 5;
-  if (index % tickStep === 0) {
-    return tick;
-  }
-  return "";
+export const switchTableKey = (key: keyof typeof TABLE_COIN_TEXT) => {
+  return TABLE_COIN_TEXT[key];
 };
 
-export const switchTableKey = (key: string) => {
-    let stringKey = '';
-    switch (key) {
-      case 'supply':
-        stringKey = 'Available supply for trading';
-        break;
-      case 'maxSupply':
-        stringKey = 'Total quantity of asset issued';
-        break;
-      case 'volumeUsd24Hr':
-        stringKey = 'Quantity of trading volume over the last 24h';
-        break;
-      case 'changePercent24Hr':
-        stringKey = 'The direction and value change in the last 24h';
-        break;
-      case 'vwap24Hr':
-        stringKey = 'Volume Weighted Average Price in the last 24h';
-        break;
-      case 'explorer':
-        stringKey = 'Explorer';
-        break;
-      default:
-        stringKey = key;
-    }
-    return stringKey;
+export const switchSing = (key: keyof typeof TABLE_COIN_TEXT, dataObj: OneCoinType) => {
+  const valuesText = {
+    supply: formatBySign(
+      formatByWords(dataObj[key], FORMAT_NUMS_WORD.MILLION),
+      FORMAT_NUMS_SIGN.DOLLAR
+    ),
+    maxSupply: formatBySign(
+      formatByWords(dataObj[key], FORMAT_NUMS_WORD.MILLION),
+      FORMAT_NUMS_SIGN.DOLLAR
+    ),
+    volumeUsd24Hr: formatBySign(
+      formatByWords(dataObj[key], FORMAT_NUMS_WORD.BILLION),
+      FORMAT_NUMS_SIGN.DOLLAR
+    ),
+    changePercent24Hr: formatBySign(
+      formatNums(dataObj[key]),
+      FORMAT_NUMS_SIGN.PERCENT
+    ),
+    vwap24Hr: formatBySign(formatNums(dataObj[key]), FORMAT_NUMS_SIGN.DOLLAR),
+    explorer: dataObj[key],
   };
 
-export const switchSing = (key: string, dataObj: OneCoinType) => {
-    let stringValue = '';
-    switch (key) {
-      case 'supply':
-        stringValue = addDollarSign(formatToMillion(dataObj[key]));
-        break;
-      case 'maxSupply':
-        stringValue = addDollarSign(formatToMillion(dataObj[key]));
-        break;
-      case 'volumeUsd24Hr':
-        stringValue = addDollarSign(formatToBillion(dataObj[key]));
-        break;
-      case 'changePercent24Hr':
-        stringValue = addProcentSign(formatNums(dataObj[key]));
-        break;
-      case 'vwap24Hr':
-        stringValue =addDollarSign(formatNums(dataObj[key]));
-        break;
-      case 'explorer':
-        stringValue = dataObj[key];
-        break;
-      default:
-        return stringValue;
-    }
-    return stringValue;
-  }
+  return valuesText[key];
+};
 
-  export  const createTableObj = (dataObj: OneCoinType) => {
+export const createTableObj = (dataObj: OneCoinType) => {
+  const objKeys = Object.keys(dataObj).filter(
+    (elem) =>
+      elem !== "id" &&
+      elem !== "rank" &&
+      elem !== "symbol" &&
+      elem !== "name" &&
+      elem !== "marketCapUsd" &&
+      elem !== "priceUsd"
+  );
 
-    const objKeys = Object.keys(dataObj).filter(
-      (elem) =>
-        elem !== 'id' &&
-        elem !== 'rank' &&
-        elem !== 'symbol' &&
-        elem !== 'name' &&
-        elem !== 'marketCapUsd' &&
-        elem !== 'priceUsd'
-    );
- 
-    const dataVal = objKeys.map((elem) => {
-      return {
-        id: elem,
-        key: switchTableKey(elem),
-        value: switchSing(elem, dataObj),
-      };
-    });
+  const dataVal = (objKeys as Array<keyof typeof TABLE_COIN_TEXT>).map((elem) => {
+    return {
+      id: elem,
+      key: switchTableKey(elem),
+      value: switchSing(elem, dataObj),
+    };
+  });
 
-    const dataTableVal = [
-      {
-        id: 'priceUsd',
-        key: 'Price',
-        value: addDollarSign(formatNums(dataObj.priceUsd)),
-      },
-      ...dataVal,
-    ];
+  const dataTableVal = [
+    {
+      id: "priceUsd",
+      key: "Price",
+      value: formatBySign(formatNums(dataObj.priceUsd), FORMAT_NUMS_SIGN.DOLLAR),
+    },
+    ...dataVal,
+  ];
 
-    return dataTableVal;
-  }
+  return dataTableVal;
+};

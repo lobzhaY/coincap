@@ -1,3 +1,4 @@
+import notFoundSrc from '../../assets/not-found.png';
 import styles from "./not-found-page.module.scss";
 
 const NotFoundPage: React.FC = () => {
@@ -6,7 +7,7 @@ const NotFoundPage: React.FC = () => {
       <div className={styles.wrapper}>
         <div>
           <img
-            src='https://cdn-icons-png.flaticon.com/512/6261/6261498.png'
+            src={notFoundSrc}
             alt='404'
           />
         </div>

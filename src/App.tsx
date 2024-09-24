@@ -1,8 +1,8 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useCallback, useEffect } from "react";
 
 import { Outlet, useNavigate } from "react-router-dom";
 
-import { ConfigProvider } from "antd";
+import { ConfigProvider, notification } from "antd";
 
 import { useAppDispatch, useAppSelector } from "./hooks";
 
@@ -10,12 +10,17 @@ import { Header, Loader } from "./components";
 
 import theme from "./styles/config-provider";
 import styles from "./App.module.scss";
-import { fetchData } from "./redux/actions/get-coins-asynk-thunk";
-import { CoinType, addCoinToCart, compareTotalPrice, synhronizeCoinsPrice } from "./redux/slices/shopping-cart";
+import { fetchData } from "./redux/actions/get-coins-async-thunk";
+import {
+  CoinType,
+  addCoinToCart,
+  compareTotalPrice,
+  synhronizeCoinsPrice,
+} from "./redux/slices/shopping-cart";
 import { getTotalPrice } from "./utils/get-total-price";
 
 function App() {
-  const { isError } = useAppSelector((state) => state.app);
+  const { isNotFoundCoin, isError, errorMessage } = useAppSelector((state) => state.app);
   const { cart } = useAppSelector((state) => state.shoppingCart);
   const { allCoins } = useAppSelector((state) => state.coins);
 
@@ -23,10 +28,10 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isError) {
+    if (isNotFoundCoin) {
       navigate("/404", { replace: true });
     }
-  }, [isError, navigate]);
+  }, [isNotFoundCoin, navigate]);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -53,18 +58,36 @@ function App() {
     }
   }, [allCoins, dispatch]);
 
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = useCallback((description: string) => {
+    api.open({
+      message: 'Something went wrong',
+      description: description,
+      className: 'custom-class',
+      style: {
+        width: 600,
+      },
+    });
+  }, [api]);
+
+  useEffect(() => {
+    if (isError) {
+      openNotification(errorMessage)
+    }
+  }, [errorMessage, isError, openNotification])
+
   return (
     <div className={styles.root}>
-      <ConfigProvider
-          theme={theme}
-        >
-      <Suspense fallback={<Loader />}>
-        <Header />
-        <div>
-          <Outlet />
-        </div>
-      </Suspense>
+      <ConfigProvider theme={theme}>
+        <Suspense fallback={<Loader />}>
+          <Header />
+          <div>
+            <Outlet />
+          </div>
+        </Suspense>
       </ConfigProvider>
+      {contextHolder}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { Button, ConfigProvider } from "antd";
 import { LeftSquareOutlined } from "@ant-design/icons";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { fetchActiveCoinData } from "../../redux/actions/get-coins-asynk-thunk";
+import { fetchActiveCoinData } from "../../redux/actions/get-coins-async-thunk";
 
 import {
   CoinWidget,
@@ -58,9 +58,7 @@ const InfoPage: React.FC = () => {
               <LineRecharts coinId={id} />
             </div>
 
-            <ConfigProvider
-              theme={themeInfoPage}
-            >
+            <ConfigProvider theme={themeInfoPage}>
               <Button
                 type='primary'
                 className={styles.buttonContainer}
