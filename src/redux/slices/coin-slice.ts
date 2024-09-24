@@ -4,7 +4,6 @@ import {
   fetchActiveCoinData,
   fetchData,
   fetchHistoryData,
-  fetchTopCoinsData,
 } from '../actions/get-coins-asynk-thunk';
 
 import { HistoryCoinType, OneCoinType } from '../../types';
@@ -37,6 +36,7 @@ const coinsSlice = createSlice({
   reducers: {
     changePaginationCurrentPage: (state, action: PayloadAction<{ page: number }>) => {
       if (action.payload.page == 1) {
+        state.offset = 0;
         state.coins = state.allCoins.slice(state.offset, action.payload.page * state.limit);
       } else {
         state.coins = state.allCoins.slice(
@@ -51,7 +51,16 @@ const coinsSlice = createSlice({
     builder
       .addCase(fetchData.fulfilled, (state, action: PayloadAction<OneCoinType[]>) => {
         state.allCoins = action.payload;
-        state.coins = action.payload.slice(state.offset, state.currentPage * state.limit);
+
+        if (state.currentPage === 1) {
+          state.offset = 0;
+          state.coins = action.payload.slice(state.offset, state.currentPage * state.limit);
+        } else {
+          state.offset = (state.currentPage - 1) * state.limit;
+          state.coins = action.payload.slice(state.offset, state.currentPage * state.limit);
+        }
+
+        state.headerCoin = action.payload.slice(0, 3);
       })
       .addCase(fetchHistoryData.fulfilled, (state, action: PayloadAction<HistoryCoinType[]>) => {
         state.historyCoin = action.payload;
@@ -59,12 +68,6 @@ const coinsSlice = createSlice({
       .addCase(fetchActiveCoinData.fulfilled, (state, action: PayloadAction<OneCoinType>) => {
         state.activeCoin = action.payload;
       })
-      .addCase(fetchActiveCoinData.rejected, (state, action) => {
-        
-      })
-      .addCase(fetchTopCoinsData.fulfilled, (state, action: PayloadAction<OneCoinType[]>) => {
-        state.headerCoin = action.payload;
-      });
   },
 });
 

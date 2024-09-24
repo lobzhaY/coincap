@@ -11,7 +11,7 @@ export const getTotalPrice = (coins: CoinType[]): number => {
 };
 
 export const getPresentTotalDiff = (newPrice: number, oldPrice: number): number => {
-    return ((newPrice - oldPrice) / oldPrice ) * 100 || 0;
+    return oldPrice === 0 ? 0 : ((newPrice - oldPrice) / oldPrice ) * 100;
 };
 
 export const getPriceDiff = (newPrice: number, oldPrice: number): number => {

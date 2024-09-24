@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Button, ConfigProvider } from "antd";
 import { LeftSquareOutlined } from "@ant-design/icons";
@@ -16,12 +16,14 @@ import {
 } from "./components";
 
 import styles from "./info-page.module.scss";
-import { Loader } from "../../components";
+import { Cap, Loader } from "../../components";
+import { themeInfoPage } from "../../styles/config-provider";
 
 const InfoPage: React.FC = () => {
   const { activeCoin } = useAppSelector((state) => state.coins);
   const { isLoading } = useAppSelector((state) => state.app);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -31,44 +33,49 @@ const InfoPage: React.FC = () => {
     }
   }, [id, dispatch]);
 
+  const handleGoBack = () => {
+    navigate("/");
+  };
+
   return (
     <>
-      {!isLoading && activeCoin && id ? (
-        <div className={styles.itemContainer}>
-          <CoinWidget
-            coinName={activeCoin.name}
-            coinSymbol={activeCoin.symbol}
-          />
+      {!isLoading ? (
+        activeCoin && id ? (
+          <div className={styles.itemContainer}>
+            <CoinWidget
+              coinName={activeCoin.name}
+              coinSymbol={activeCoin.symbol}
+            />
 
-          <QuantityForm
-            idCoin={id}
-            price={activeCoin.priceUsd}
-            name={activeCoin.name}
-          />
+            <QuantityForm
+              idCoin={id}
+              price={activeCoin.priceUsd}
+              name={activeCoin.name}
+            />
 
-          <div className={styles.dataContainer}>
-            <ItemTable dataCoin={activeCoin} />
-            <LineRecharts coinId={id} />
-          </div>
+            <div className={styles.dataContainer}>
+              <ItemTable dataCoin={activeCoin} />
+              <LineRecharts coinId={id} />
+            </div>
 
-          <Link to='/'>
             <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: "#EF880D",
-                  colorPrimaryHover: "#AE0A8A",
-                },
-              }}
+              theme={themeInfoPage}
             >
-              <Button type='primary' className={styles.buttonContainer}>
+              <Button
+                type='primary'
+                className={styles.buttonContainer}
+                onClick={handleGoBack}
+              >
                 <div className={styles.button}>
                   <LeftSquareOutlined className={styles.icon} />
                   <span>Back</span>
                 </div>
               </Button>
             </ConfigProvider>
-          </Link>
-        </div>
+          </div>
+        ) : (
+          <Cap />
+        )
       ) : (
         <Loader />
       )}

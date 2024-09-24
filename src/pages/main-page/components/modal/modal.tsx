@@ -1,22 +1,24 @@
-import { QuantityForm } from '../../../info-page/components';
+import { useAppSelector } from "../../../../hooks";
+import { selectCoinById } from "../../../../redux/selectors/selector";
 
-import styles from './modal.module.scss';
+import { QuantityForm } from "../../../info-page/components";
 
-type ModalTableProps = {
-  coin: {
-    idCoin: string,
-    name: string,
-    price: string,
-  } | undefined
-}
+import styles from "./modal.module.scss";
 
-export const ModalTable: React.FC<ModalTableProps> = ({coin}) => {
+export const ModalTable: React.FC = () => {
+  const { modalPayload: coinId } = useAppSelector((state) => state.app);
+  const coin = useAppSelector((state) => selectCoinById(coinId)(state));
+
   return (
     <div className={styles.modalTable}>
       <h2 className={styles.modalTitle}>
         Купить <span>{coin?.name}</span>
       </h2>
-      <QuantityForm idCoin={coin?.idCoin as string} price={coin?.price as string} name={coin?.name as string} />
+      <QuantityForm
+        idCoin={coinId}
+        price={coin?.priceUsd as string}
+        name={coin?.name as string}
+      />
     </div>
   );
 };

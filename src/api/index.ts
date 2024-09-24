@@ -1,1 +1,1 @@
-export { getCoins, getHistoryCoin, getActiveCoin, getTopCoins } from './coins-api';
+export { getCoins, getHistoryCoin, getActiveCoin } from './coins-api';
