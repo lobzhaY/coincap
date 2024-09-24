@@ -21,15 +21,7 @@ export const createRechartsObj = (
   return arr;
 };
 
-export const tickFormatX = (tick: string, index: number) => {
-  const tickStep = 5;
-  if (index % tickStep === 0) {
-    return tick;
-  }
-  return "";
-};
-
-export const tickFormatY = (tick: string, index: number) => {
+export const tickFormatCoords = (tick: string, index: number) => {
   const tickStep = 5;
   if (index % tickStep === 0) {
     return tick;

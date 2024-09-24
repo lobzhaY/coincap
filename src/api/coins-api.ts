@@ -1,4 +1,4 @@
-const COIN_API = 'https://api.coincap.io/v2/assets';
+const COIN_API = import.meta.env.VITE_COIN_API;
 
 export const getCoins = async () => {
   const response = await fetch(COIN_API);

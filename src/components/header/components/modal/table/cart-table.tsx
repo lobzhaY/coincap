@@ -37,12 +37,31 @@ const TableCartComponent: React.FC<TableCartComponentProps> = ({
     setDataTable(transformDataTable(cart));
   }, [cart]);
 
+  const handleTableClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+
+    if (target.closest(`.${styles.tableIcon}`)) {
+      const rowElement = target.closest("tr");
+      const rowKey = rowElement?.getAttribute("data-row-key");
+
+      if (rowKey) {
+        dispatch(deleteCoinFromCart(rowKey));
+
+        if (showSuccessMessage) {
+          showSuccessMessage(
+            getNewAlertMessage(rowKey, MESSAGE.delete_success)
+          );
+        }
+      }
+    }
+  };
+
   return (
     <>
       {!dataTable || dataTable.length === 0 ? (
         <p className={styles.cap}>Add some coins first</p>
       ) : (
-        <div className={styles.tableContainer}>
+        <div className={styles.tableContainer} onClick={handleTableClick}>
           <Table
             dataSource={dataTable}
             pagination={false}
@@ -78,16 +97,6 @@ const TableCartComponent: React.FC<TableCartComponentProps> = ({
               render={() => (
                 <CloseSquareOutlined className={styles.tableIcon} />
               )}
-              onCell={(record) => {
-                return {
-                  onClick: () => {
-                    dispatch(deleteCoinFromCart(record.id));
-                    if (showSuccessMessage) {
-                      showSuccessMessage(getNewAlertMessage(record.id, MESSAGE.delete_success));
-                    }
-                  },
-                };
-              }}
             />
           </Table>
         </div>

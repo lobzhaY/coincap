@@ -1,6 +1,6 @@
 import { FORMAT_NUMS } from "../../../../../constants/modal";
 import { OneCoinType } from "../../../../../types";
-import { formatBySign, formatByWords, formatNums } from "../../../../../utils";
+import { formatBySign, formatByWords, formatNums, getChangePercentColor } from "../../../../../utils";
 import { OneCoinTableType } from "../types/types";
 
 export const transformDataTable = (coins: OneCoinType[]): OneCoinTableType[] => {
@@ -15,3 +15,9 @@ export const transformDataTable = (coins: OneCoinType[]): OneCoinTableType[] => 
       vwap24Hr: formatBySign(formatNums(coin.vwap24Hr), FORMAT_NUMS.DOLLAR),
     }));
   };
+
+  export const getFieldStyle = (record: OneCoinTableType) => ({
+    style: {
+      color: getChangePercentColor(record.changePercent24Hr),
+    },
+  })
