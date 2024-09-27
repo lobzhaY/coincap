@@ -9,7 +9,7 @@ import { MODAL_BRIEFCASE_TEXT } from '../../../../constants/text';
 import styles from './modal.module.scss';
 
 export const ModalShopping: React.FC = () => {
-  const { totalCartPrice } = useAppSelector((state) => state.shoppingCart);
+  const { totalCartPrice } = useAppSelector(state => state.shoppingCart);
 
   return (
     <div className={styles.modalTable}>

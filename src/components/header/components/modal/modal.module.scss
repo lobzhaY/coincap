@@ -1,17 +1,15 @@
 @use '../../../../styles/mixins';
 
 .modalTable {
-
-  @include mixins.display-column(3rem,  center);
+  @include mixins.display-column(3rem, center);
 
   h2.modalTitle {
     @include mixins.font-header(var(--font-size-4), (--font-weight-2), var(--color-5));
-
   }
 }
 
 .shoppingCart {
-  @include mixins.display-column(1rem,  center);
+  @include mixins.display-column(1rem, center);
 
   width: 75%;
 
@@ -23,7 +21,81 @@
     }
 
     span {
-      @include mixins.font-header(var(--font-size-2), var(--font-weight-3), var(--color-3))
+      @include mixins.font-header(var(--font-size-2), var(--font-weight-3), var(--color-3));
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .modalTable {
+    @include mixins.display-column(1rem, center);
+
+    h2.modalTitle {
+      @include mixins.font-header(var(--font-size-2), (--font-weight-2), var(--color-5));
+    }
+  }
+
+  .shoppingCart {
+    .summary {
+      @include mixins.display-row(center, center, 1rem);
+
+      p {
+        @include mixins.font-text;
+      }
+
+      span {
+        @include mixins.font-header(var(--font-size-1), var(--font-weight-3), var(--color-3));
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .modalTable {
+    h2.modalTitle {
+      @include mixins.font-header(var(--font-size-1), (--font-weight-2), var(--color-5));
+    }
+  }
+
+  .shoppingCart {
+    width: 100%;
+
+    .summary {
+      p {
+        @include mixins.font-text(var(--font-size-adaptive-1));
+      }
+
+      span {
+        @include mixins.font-header(var(--font-size-0), var(--font-weight-3), var(--color-3));
+      }
+    }
+  }
+}
+
+@media (max-width: 566px) {
+  .modalTable {
+    @include mixins.display-column(0.5rem, center);
+
+    h2.modalTitle {
+      @include mixins.font-header(var(--font-size-adaptive-1), (--font-weight-1), var(--color-5));
+    }
+  }
+
+  .shoppingCart {
+    @include mixins.display-column(0.5rem, center);
+
+    width: 100%;
+
+    .summary {
+      @include mixins.display-row(center, center, 1rem);
+
+      p {
+        @include mixins.font-text(var(--font-size-adaptive-0));
+      }
+
+      span {
+        @include mixins.font-header(var(--font-size-adaptive-1), var(--font-weight-1), var(--color-3));
+      }
     }
   }
 }

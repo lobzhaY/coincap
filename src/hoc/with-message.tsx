@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { message } from 'antd';
 
 export const withMessage = <P extends object>(WrappedComponent: React.FC<P>) => {
   return (props: P) => {
@@ -6,7 +6,7 @@ export const withMessage = <P extends object>(WrappedComponent: React.FC<P>) => 
 
     const showSuccessMessage = (content: string) => {
       messageApi.open({
-        type: "success",
+        type: 'success',
         content,
       });
     };

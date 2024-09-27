@@ -1,1 +1,1 @@
-export type { HistoryCoinType, OneCoinType} from './coin.__types__';
+export type { HistoryCoinType, OneCoinType } from './coin.__types__';

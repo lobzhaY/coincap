@@ -1,11 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MODAL } from "../../constants/modal";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { MODAL } from '../../constants/modal';
 
-import {
-  fetchActiveCoinData,
-  fetchData,
-  fetchHistoryData,
-} from "../actions/get-coins-async-thunk";
+import { fetchActiveCoinData, fetchData, fetchHistoryData } from '../actions/get-coins-async-thunk';
 
 type InitialAppState = {
   isError: boolean;
@@ -20,15 +16,15 @@ type InitialAppState = {
 const initialState: InitialAppState = {
   isError: false,
   isNotFoundCoin: false,
-  errorMessage: "",
+  errorMessage: '',
   isLoading: false,
   isOpenModal: false,
   typeModal: null,
-  modalPayload: "",
+  modalPayload: '',
 };
 
 const appSlice = createSlice({
-  name: "app",
+  name: 'app',
   initialState,
   reducers: {
     openModal: (state, action: PayloadAction<MODAL | null>) => {
@@ -42,11 +38,11 @@ const appSlice = createSlice({
     saveModalBuyPayload: (state, action: PayloadAction<string>) => {
       state.modalPayload = action.payload;
     },
-    removeModalBuyPayload: (state) => {
-      state.modalPayload = "";
+    removeModalBuyPayload: state => {
+      state.modalPayload = '';
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(fetchActiveCoinData.rejected, (state, action) => {
         state.isNotFoundCoin = true;
@@ -55,10 +51,10 @@ const appSlice = createSlice({
           state.errorMessage = action.payload;
         }
       })
-      .addCase(fetchActiveCoinData.pending, (state) => {
+      .addCase(fetchActiveCoinData.pending, state => {
         state.isLoading = true;
       })
-      .addCase(fetchActiveCoinData.fulfilled, (state) => {
+      .addCase(fetchActiveCoinData.fulfilled, state => {
         state.isLoading = false;
       })
       .addCase(fetchHistoryData.rejected, (state, action) => {
@@ -67,7 +63,7 @@ const appSlice = createSlice({
           state.errorMessage = action.payload;
         }
       })
-      .addCase(fetchData.fulfilled, (state) => {
+      .addCase(fetchData.fulfilled, state => {
         state.isLoading = false;
         state.isError = false;
       })
@@ -78,18 +74,13 @@ const appSlice = createSlice({
           state.errorMessage = action.payload;
         }
       })
-      .addCase(fetchData.pending, (state) => {
+      .addCase(fetchData.pending, state => {
         state.isLoading = true;
         state.isError = false;
       });
   },
 });
 
-export const {
-  openModal,
-  closeModal,
-  saveModalBuyPayload,
-  removeModalBuyPayload,
-} = appSlice.actions;
+export const { openModal, closeModal, saveModalBuyPayload, removeModalBuyPayload } = appSlice.actions;
 
 export default appSlice.reducer;

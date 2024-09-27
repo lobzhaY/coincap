@@ -1,12 +1,12 @@
-import { DataTable, TablePagination } from "./components";
+import { DataTable, TablePagination } from './components';
 
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from '../../hooks';
 
-import { Cap, Loader } from "../../components";
+import { Cap, Loader } from '../../components';
 
 const MainPage: React.FC = () => {
-  const { allCoins } = useAppSelector((state) => state.coins);
-  const { isLoading } = useAppSelector((state) => state.app);
+  const { allCoins } = useAppSelector(state => state.coins);
+  const { isLoading } = useAppSelector(state => state.app);
 
   return (
     <>

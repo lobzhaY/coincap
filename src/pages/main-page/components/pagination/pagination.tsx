@@ -7,7 +7,7 @@ import styles from './pagination.module.scss';
 import { themePagination } from '../../../../styles/config-provider';
 
 export const TablePagination: React.FC = () => {
-  const { currentPage, limit, allCoins } = useAppSelector((state) => state.coins);
+  const { currentPage, limit, allCoins } = useAppSelector(state => state.coins);
   const dispatch = useAppDispatch();
 
   const handleChangePage = (page: number) => {
@@ -16,8 +16,7 @@ export const TablePagination: React.FC = () => {
 
   return (
     <div className={styles.paginationContainer}>
-      <ConfigProvider
-        theme={themePagination}>
+      <ConfigProvider theme={themePagination}>
         <Pagination
           defaultCurrent={1}
           current={currentPage}

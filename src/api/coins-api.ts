@@ -14,4 +14,3 @@ export const getActiveCoin = async (id: string) => {
   const response = await fetch(`${COIN_API}/${id}`);
   return await response.json();
 };
-

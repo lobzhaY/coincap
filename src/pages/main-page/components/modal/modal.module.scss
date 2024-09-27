@@ -1,14 +1,41 @@
 @use '../../../../styles/mixins';
 
 .modalTable {
-
-  @include mixins.display-column(3rem,  center);
+  @include mixins.display-column(3rem, center);
 
   h2.modalTitle {
     @include mixins.font-header(var(--font-size-4), (--font-weight-2), var(--color-5));
 
     span {
       color: var(--color-3);
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .modalTable {
+    @include mixins.display-column(1rem, center);
+
+    h2.modalTitle {
+      @include mixins.font-header(var(--font-size-2), (--font-weight-2), var(--color-5));
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .modalTable {
+    h2.modalTitle {
+      @include mixins.font-header(var(--font-size-0), (--font-weight-2), var(--color-5));
+    }
+  }
+}
+
+@media (max-width: 566px) {
+  .modalTable {
+    @include mixins.display-column(0.5rem, center);
+
+    h2.modalTitle {
+      @include mixins.font-header(var(--font-size-adaptive-1), (--font-weight-1), var(--color-5));
     }
   }
 }
