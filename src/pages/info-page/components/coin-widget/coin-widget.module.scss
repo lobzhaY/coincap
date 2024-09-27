@@ -29,17 +29,17 @@
 @media (max-width: 1200px) {
   .widgetWrapper {
     @include mixins.display-row(center, center, 1rem);
-  
+
     h1 {
       font-size: var(--font-size-2);
     }
   }
-  
+
   .widgetContainer {
     border: 0.3rem solid var(--color-3);
     border-radius: 0.1rem;
     padding: 0.3rem;
-  
+
     span {
       font-size: var(--font-size-2);
     }
@@ -49,16 +49,16 @@
 @media (max-width: 566px) {
   .widgetWrapper {
     @include mixins.display-row(center, center, 0.5rem);
-  
+
     h1 {
       font-size: var(--font-size-adaptive-1);
     }
   }
-  
+
   .widgetContainer {
     border: 0.2rem solid var(--color-3);
     padding: 0.4rem;
-  
+
     span {
       font-size: var(--font-size-adaptive-0);
     }

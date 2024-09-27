@@ -61,7 +61,7 @@ export const DataTableContainer: React.FC = () => {
   return (
     <>
       <div className={styles.tableContainer} onClick={handleTableClick}>
-        <Table dataSource={dataTable} pagination={false} size={'small'} rowKey="id" >
+        <Table dataSource={dataTable} pagination={false} size={'small'} rowKey="id">
           <Column responsive={['lg']} title={() => <p className={styles.columnTitle}>№</p>} dataIndex="rank" key="rank" className={styles.tableField} />
           <Column responsive={['md']} dataIndex="symbol" key="symbol" className={styles.tableFieldColor} />
           <Column

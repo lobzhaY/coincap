@@ -13,7 +13,7 @@ const theme = {
       headerBorderRadius: 1,
       cellPaddingBlockSM: 5,
       cellPaddingInlineSM: 5,
-      cellFontSizeSM: 12
+      cellFontSizeSM: 12,
     },
     Pagination: {
       itemActiveBg: '#fad0f1',
