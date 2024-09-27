@@ -1,29 +1,29 @@
 @use '../../styles/mixins';
 
 .notFoundContainer {
-    @include mixins.display-center;
+  @include mixins.display-center;
 
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 
 .wrapper {
-    @include mixins.display-column(2rem, center);
+  @include mixins.display-column(2rem, center);
 
-    div {
-        width: 40rem;
-        height: 40rem;
+  div {
+    width: 40rem;
+    height: 40rem;
 
-        img {
-            width: 100%;
-            height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
 
-            object-fit: contain;
-            object-position: center;
-        }
+      object-fit: contain;
+      object-position: center;
     }
+  }
 
-    h1 {
-        @include mixins.font-header(var(--font-size-3));
-    }
+  h1 {
+    @include mixins.font-header(var(--font-size-3));
+  }
 }

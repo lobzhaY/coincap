@@ -8,7 +8,7 @@ const store = configureStore({
   reducer: {
     coins: coinReducer,
     shoppingCart: shoppingCart,
-    app: appReducer
+    app: appReducer,
   },
 });
 

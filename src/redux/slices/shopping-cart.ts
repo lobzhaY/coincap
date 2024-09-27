@@ -15,7 +15,7 @@ type ActionCoinType = {
   name: string;
   quantity: number;
   price: string;
-}
+};
 
 type InitialCoinState = {
   cart: CoinType[];
@@ -34,17 +34,17 @@ const shoppingSlice = createSlice({
   initialState,
   reducers: {
     addCoinToCart: (state, action: PayloadAction<ActionCoinType>) => {
-      const activeCoin = state.cart.find((coin) => coin.id === action.payload.id);
+      const activeCoin = state.cart.find(coin => coin.id === action.payload.id);
       if (activeCoin) {
         activeCoin.quantity += action.payload.quantity;
         activeCoin.totalPrice = getTotalPriceCoin(activeCoin.quantity, activeCoin.price);
       } else {
-        state.cart.push({...action.payload, totalPrice: getTotalPriceCoin(action.payload.quantity, action.payload.price)});
+        state.cart.push({ ...action.payload, totalPrice: getTotalPriceCoin(action.payload.quantity, action.payload.price) });
       }
       state.totalCartPrice = getTotalPrice(state.cart);
     },
     deleteCoinFromCart: (state, action: PayloadAction<string>) => {
-      const filterCart = state.cart.filter((coin) => coin.id !== action.payload);
+      const filterCart = state.cart.filter(coin => coin.id !== action.payload);
       state.cart = filterCart;
       state.totalCartPrice = getTotalPrice(filterCart);
     },
@@ -52,14 +52,14 @@ const shoppingSlice = createSlice({
       state.totalPriceDiff = action.payload;
     },
     synhronizeCoinsPrice: (state, action: PayloadAction<OneCoinType[]>) => {
-      state.cart.forEach((coin) => {
-        const activeCoin = action.payload.find((actionCoin) => actionCoin.id === coin.id)
-        coin.price = activeCoin?.priceUsd as string
+      state.cart.forEach(coin => {
+        const activeCoin = action.payload.find(actionCoin => actionCoin.id === coin.id);
+        coin.price = activeCoin?.priceUsd as string;
         coin.totalPrice = getTotalPriceCoin(coin.quantity, activeCoin?.priceUsd as string);
-      })
+      });
 
       state.totalCartPrice = getTotalPrice(state.cart);
-    }
+    },
   },
 });
 

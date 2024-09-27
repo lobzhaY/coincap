@@ -14,7 +14,7 @@ export type OneCoinType = {
 };
 
 export type HistoryCoinType = {
-    date: string;
-    priceUsd: string;
-    time: number;
-}
+  date: string;
+  priceUsd: string;
+  time: number;
+};

@@ -11,9 +11,7 @@ export const PopularCoin: React.FC<PopularCoinProps> = ({ coinName, coinPrice })
   return (
     <div className={styles.coinWrapper}>
       <h4>{coinName}</h4>
-      <p>
-        {formatBySign(formatNums(coinPrice), FORMAT_NUMS_SIGN.DOLLAR)}
-      </p>
+      <p>{formatBySign(formatNums(coinPrice), FORMAT_NUMS_SIGN.DOLLAR)}</p>
     </div>
   );
 };
