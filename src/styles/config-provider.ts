@@ -11,6 +11,9 @@ const theme = {
       borderColor: '#fad0f1',
       headerBg: '#eee0e0',
       headerBorderRadius: 1,
+      cellPaddingBlockSM: 5,
+      cellPaddingInlineSM: 5,
+      cellFontSizeSM: 12
     },
     Pagination: {
       itemActiveBg: '#fad0f1',

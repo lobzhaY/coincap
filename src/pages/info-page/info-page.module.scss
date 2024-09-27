@@ -2,6 +2,7 @@
 
 .itemContainer {
   @include mixins.display-column(1.5rem, center);
+  margin-bottom: 2rem;
 }
 
 .buttonContainer {
@@ -24,4 +25,48 @@
 
 .dataContainer {
   @include mixins.display-column(1rem, center);
+}
+
+@media (max-width: 1200px) {
+  .button {  
+    font-size: var(--font-size-0);
+  
+    span.icon {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .button {  
+    font-size: var(--font-size-adaptive-0);
+  
+    span.icon {
+      font-size: 1.4rem;
+    }
+  }
+}
+
+@media (max-width: 566px) {
+  .itemContainer {
+    @include mixins.display-column(0.5rem, center);
+  }
+  
+  .buttonContainer {
+    padding: 0 5rem;
+  }
+  
+  .button {
+    @include mixins.display-row(center, center, 1rem);
+  
+    font-size: var(--font-size-adaptive-0);
+
+    span.icon {
+      font-size: 1.4rem;
+    }
+  }
+  
+  .dataContainer {
+    @include mixins.display-column(0.5rem, center);
+  }
 }

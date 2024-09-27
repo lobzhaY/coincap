@@ -41,3 +41,47 @@
 .tableWeight {
   font-weight: var(--font-weight-3);
 }
+
+@media (max-width: 1200px) {
+  .tableContainer {
+    margin: 1rem auto 0;
+  }
+  
+  .columnTitle {
+    font-size: var(--font-size-0);
+  }
+  
+  .tableIcon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .tableContainer {
+    margin: 1rem 1rem 0;
+    width: calc(100% - 2rem);
+  }
+  
+  .columnTitle {
+    font-size: var(--font-size-adaptive-1);
+  }
+  
+  .tableIcon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 566px) {
+  .tableContainer {
+    width: calc(100% - 1rem);
+    margin: 0.5rem auto 0;
+  }
+  
+  .columnTitle {
+    font-size: 1rem;
+  }
+  
+  .tableIcon {
+    font-size: 1rem;
+  }
+}

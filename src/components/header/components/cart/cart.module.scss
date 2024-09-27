@@ -27,3 +27,89 @@
     }
   }
 }
+
+
+@media (max-width: 1200px) {
+  .shoppingContainer {
+    @include mixins.display-row(space-between, center, 1rem);
+  
+    .soppingCartIcon {
+      font-size: 6rem;
+    }
+  
+    .shoppingCart {  
+      h3 {
+        @include mixins.font-header(var(--font-size-0), var(--font-weight-1));
+      }
+
+      h2 {
+        @include mixins.font-header(var(--font-size-1), var(--font-weight-3), var(--color-3));
+      }
+  
+      .shoppingCartStatistic {
+        @include mixins.display-row(flex-start, flex-start, 0.5rem);
+  
+        span {
+          @include mixins.font-header(var(--font-size-adaptive-1), var(--font-weight-1), var(--color-2));
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .shoppingContainer {
+    @include mixins.display-row(space-between, center, 0.5rem);
+  
+    .soppingCartIcon {
+      font-size: 5rem;
+    }
+  
+    .shoppingCart {  
+      h3 {
+        @include mixins.font-header(var(--font-size-adaptive-1), var(--font-weight-1));
+      }
+
+      h2 {
+        @include mixins.font-header(var(--font-size-adaptive-0), var(--font-weight-3), var(--color-3));
+      }
+  
+      .shoppingCartStatistic {
+        @include mixins.display-row(flex-start, flex-start, 0.5rem);
+  
+        span {
+          @include mixins.font-header(var(--font-size-adaptive-0), var(--font-weight-1), var(--color-2));
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 566px) {
+  .shoppingContainer {
+    @include mixins.display-row(space-between, center, 1rem);
+  
+    .soppingCartIcon {
+      font-size: 4rem;
+    }
+  
+    .shoppingCart {
+      @include mixins.display-column(0.1rem);
+  
+      h3 {
+        @include mixins.font-header(var(--font-size-adaptive-0), var(--font-weight-1));
+      }
+      h2 {
+        @include mixins.font-header(var(--font-size-adaptive-1), var(--font-weight-adaptive-0), var(--color-3));
+      }
+  
+      .shoppingCartStatistic {
+        @include mixins.display-row(flex-start, flex-start, 0.1rem);
+  
+        span {
+          @include mixins.font-header(var(--font-size-adaptive-0), var(--font-weight-0), var(--color-2));
+        }
+      }
+    }
+  }
+}

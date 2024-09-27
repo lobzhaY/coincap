@@ -11,3 +11,43 @@
     @include mixins.font-header(var(--font-size-2), var(--font-weight-1));
   }
 }
+
+@media (max-width: 1200px) {
+  .coinWrapper {
+    
+    h4 {
+      @include mixins.font-header(var(--font-size-0));
+    }
+  
+    p {
+      @include mixins.font-header(var(--font-size-adaptive-1), var(--font-weight-1));
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .coinWrapper {
+    
+    h4 {
+      @include mixins.font-header(var(--font-size-adaptive-1), var(--font-weight-adaptive-0));
+    }
+  
+    p {
+      @include mixins.font-header(var(--font-size-adaptive-0), var(--font-weight-1));
+    }
+  }
+}
+
+@media (max-width: 566px) {
+  .coinWrapper {
+    @include mixins.display-row(flex-start, center, 0.5rem);
+  
+    h4 {
+      @include mixins.font-header(var(--font-size-adaptive-1));
+    }
+  
+    p {
+      @include mixins.font-header(var(--font-size-adaptive-0), var(--font-weight-1));
+    }
+  }
+}

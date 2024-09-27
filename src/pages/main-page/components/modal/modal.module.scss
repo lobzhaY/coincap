@@ -11,3 +11,31 @@
     }
   }
 }
+
+@media (max-width: 1200px) {
+  .modalTable {
+    @include mixins.display-column(1rem, center);
+  
+    h2.modalTitle {
+      @include mixins.font-header(var(--font-size-2), (--font-weight-2), var(--color-5));
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .modalTable {  
+    h2.modalTitle {
+      @include mixins.font-header(var(--font-size-0), (--font-weight-2), var(--color-5));
+    }
+  }
+}
+
+@media (max-width: 566px) {
+  .modalTable {
+    @include mixins.display-column(0.5rem, center);
+  
+    h2.modalTitle {
+      @include mixins.font-header(var(--font-size-adaptive-1), (--font-weight-1), var(--color-5));
+    }
+  }
+}

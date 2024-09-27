@@ -5,3 +5,9 @@
 
   padding: 2rem;
 }
+
+@media (max-width: 767px) {
+  .paginationContainer {
+    padding: 1rem;
+  }
+}

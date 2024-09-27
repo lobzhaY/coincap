@@ -32,7 +32,7 @@ export const LineRecharts: React.FC<LineRechartsProps> = ({ coinId }) => {
   }, [historyCoin, coinId]);
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '85%' }}>
       {dataRecharts.length > 0 && (
         <VictoryChart width={700} height={200} padding={{ top: 20, bottom: 50, left: 100, right: 20 }}>
           <VictoryArea

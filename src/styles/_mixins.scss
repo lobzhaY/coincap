@@ -28,8 +28,8 @@
   text-align: left;
 }
 
-@mixin font-text {
-  font-size: var(--font-size-0);
+@mixin font-text($size: var(--font-size-0)) {
+  font-size: $size;
   font-weight: var(--font-weight-1);
   font-family: var(--font-family-1);
   line-height: var(--line-height);

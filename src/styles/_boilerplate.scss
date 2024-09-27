@@ -7,20 +7,20 @@ html {
 
   font-size: calc(100vw / 1920 * 10);
 
-  @media (max-width: 1600px) {
-    font-size: calc(100vw / 1600 * 10);
+  @media (max-width: 1200px) {
+    font-size: calc(100vw / 1024 * 10);
   }
 
   @media (max-width: 1024px) {
-    font-size: calc(100vw / 1200 * 10);
+    font-size: calc(100vw / 768 * 10);
   }
 
-  @media (max-width: 480px) {
-    font-size: calc(100vw / 320 * 10);
+  @media (max-width: 767px) {
+    font-size: calc(100vw / 567 * 10);
   }
 
-  @media (max-width: 320px) {
-    font-size: calc(100vw / 320 * 10);
+  @media (max-width: 566px) {
+    font-size: calc(100vw / 375 * 10);
   }
 }
 
