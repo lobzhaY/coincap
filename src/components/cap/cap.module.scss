@@ -1,0 +1,25 @@
+@use '../../styles//mixins';
+
+.cap {
+  @include mixins.display-column(2rem, center);
+
+  width: 100%;
+  height: 100%;
+
+  h1 {
+    @include mixins.font-header(var(--font-size-4), var(--font-weight-3), var(--color-2));
+  }
+
+  div {
+    width: 30rem;
+    height: 30rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use '../../../../styles/mixins';
+
+.paginationContainer {
+  @include mixins.display-center;
+
+  padding: 2rem;
+}
+
+@media (max-width: 767px) {
+  .paginationContainer {
+    padding: 1rem;
+  }
+}

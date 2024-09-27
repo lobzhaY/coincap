@@ -1,0 +1,83 @@
+@use '../../../../../styles/mixins';
+
+.tableContainer {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.tableField {
+  text-align: center;
+}
+
+.columnTitle {
+  color: var(--color-5);
+  font-size: var(--font-size-1);
+  font-family: var(--font-family-0);
+  text-align: center;
+}
+
+.tableWeight {
+  font-weight: var(--font-weight-3);
+}
+
+.tableIcon {
+  color: var(--color-2);
+  font-size: 3rem;
+  cursor: pointer;
+
+  @include mixins.display-center;
+}
+
+.cap {
+  @include mixins.font-header(var(--font-size-4), var(--font-weight-3), var(--color-2));
+}
+
+@media (max-width: 1200px) {
+  .columnTitle {
+    font-size: var(--font-size-0);
+  }
+
+  .tableIcon {
+    font-size: 2rem;
+  }
+
+  .cap {
+    @include mixins.font-header(var(--font-size-3), var(--font-weight-3), var(--color-2));
+  }
+}
+
+@media (max-width: 767px) {
+  .columnTitle {
+    font-size: var(--font-size-adaptive-1);
+  }
+
+  .tableIcon {
+    font-size: 2rem;
+  }
+
+  .cap {
+    @include mixins.font-header(var(--font-size-1), var(--font-weight-3), var(--color-2));
+  }
+}
+
+@media (max-width: 566px) {
+  .tableContainer {
+    width: 100%;
+  }
+
+  .columnTitle {
+    font-size: var(--font-size-adaptive-1);
+  }
+
+  .tableWeight {
+    font-weight: var(--font-weight-2);
+  }
+
+  .tableIcon {
+    font-size: 2rem;
+  }
+
+  .cap {
+    @include mixins.font-header(var(--font-size-adaptive-1), var(--font-weight-2), var(--color-2));
+  }
+}
